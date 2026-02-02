@@ -17,7 +17,6 @@
 #include <stdint.h>
 
 
-// metadata
 typedef struct
 {
     int size_x;
@@ -41,10 +40,11 @@ typedef struct
 */
 // if return false is error
 // r, g, b, a is clear color
+// after added metadata to Render2DInit. metadata can be free
 bool Renderer2DInit(Renderer2DMetada* metadata, bool* run_true,  uint8_t r, uint8_t g, uint8_t b, uint8_t a, int buffer_size_x, int buffer_size_y);
 void Renderer2DDestroy();
 
-bool Renderer2DClear();
+// if use buffer collor. you should do clear beffor give new_buffer
 bool Renderer2DSetBufferCollor(void* new_buffer); 
 bool Renderer2DPresent(); 
 

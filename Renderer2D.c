@@ -62,6 +62,8 @@ void InitRenderer(uint8_t r, uint8_t g, uint8_t b, uint8_t a, bool* val_return){
         val_return = false;
         ErrorSDLPrint("SDL_SET_RENDER_DRAW_COLOR");
     }
+    // make first clear. after user do clear. not renderer2D
+    SDL_RenderClear(renderer);
 }
 
 void InitTexture(){
@@ -71,7 +73,7 @@ void InitTexture(){
     // SDL_TEXTUREACCESS_STREAMING for changes with buffer
     // SDL_PIXELFORMAT_RGBA8888 what used in architecture x86
     texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, _buffer_size_x, _buffer_size_y);
-
+    
 }
 
 // -----------header functions-----------
@@ -147,10 +149,6 @@ void Renderer2DDestroy(){
     SDL_Quit();
 }
 
-
-bool Renderer2DClear(){
-    return SDL_RenderClear(renderer);
-}
 
 bool Renderer2DSetBufferCollor(void* new_buffer){
     bool val_return = true;
