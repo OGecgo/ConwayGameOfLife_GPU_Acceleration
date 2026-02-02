@@ -4,6 +4,7 @@
 
 // Renderer2D need for simple with abstractions usage of sdl lib
 
+
 /*
     lib using is SDL3
     in main you should include include <SDL3/SDL_main.h> for
@@ -40,15 +41,15 @@ typedef struct
 */
 // if return false is error
 // r, g, b, a is clear color
-bool Renderer2DInit(Renderer2DMetada* metadata, bool* run_true,  uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+bool Renderer2DInit(Renderer2DMetada* metadata, bool* run_true,  uint8_t r, uint8_t g, uint8_t b, uint8_t a, int buffer_size_x, int buffer_size_y);
 void Renderer2DDestroy();
 
 bool Renderer2DClear();
-bool Renderer2DSetBufferCollor(); // to do ftiahnw tin dinatotita na doulevw me buffer. 
-bool Renderer2DPresent();
+bool Renderer2DSetBufferCollor(void* new_buffer); 
+bool Renderer2DPresent(); 
 
 // NODE:
-/* 
+/*
     Note that Windows (and possibly other platforms) has a quirk 
     about how it handles events while dragging/resizing a window, 
     which can cause this function to block for significant amounts of time. 

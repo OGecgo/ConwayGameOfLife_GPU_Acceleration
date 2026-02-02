@@ -6,6 +6,7 @@
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_video.h>
 #include <SDL3/SDL_render.h>
+#include <SDL3/SDL_pixels.h>
 #include <SDL3/SDL_error.h>
 
 
@@ -14,24 +15,29 @@
 #include <stdbool.h>
 #include <signal.h>
 
-// variables
+// SDL
 SDL_Window* window;
 SDL_Renderer* renderer;
+SDL_Texture* texture;
+// run aplication
 bool* run_true;
+// variables
+int _buffer_size_x;
+int _buffer_size_y;
 
 
+// -----------prints errors-----------
 void ErrorSDLPrint(char* error){
-	printf("ERROR - %s: %s", error, SDL_GetError());
+	printf("ERROR - %s: %s\n", error, SDL_GetError());
 }
 
-
 void ErrorCrashSDLPrint(char* error){
-	printf("ERROR - %s: %s", error, SDL_GetError());
+	printf("ERROR - %s: %s\n", error, SDL_GetError());
     Renderer2DDestroy();
 	exit(1);
 }
 
-
+// -----------signals-----------
 // signal handler for sigint
 void SignalHandler(int sig){
 	// _Exit(sig); 
@@ -40,11 +46,42 @@ void SignalHandler(int sig){
 
 
 
+// -----------initializes-----------
+void InitWindow(Renderer2DMetada* metadata){
+    window = SDL_CreateWindow(metadata->name_aplication, metadata->size_x, metadata->size_y, SDL_WINDOW_RESIZABLE);
+	if (window == NULL) ErrorCrashSDLPrint("SDL_CREATE_WINDOW");
+}
 
+void InitRenderer(uint8_t r, uint8_t g, uint8_t b, uint8_t a, bool* val_return){
+    // auto take driver for rendering
+    renderer = SDL_CreateRenderer(window, NULL);
+    if (renderer == NULL) ErrorCrashSDLPrint("SDL_CREATE_RENDERER");
+    // set clear data
+    if (!SDL_SetRenderDrawColor(renderer, r, g, b, a))
+    {
+        val_return = false;
+        ErrorSDLPrint("SDL_SET_RENDER_DRAW_COLOR");
+    }
+}
 
+void InitTexture(){
+    // get coloring format
+    SDL_PixelFormat pixelFormat = SDL_GetWindowPixelFormat(window);
 
-bool Renderer2DInit(Renderer2DMetada* metadata, bool* run, uint8_t r, uint8_t g, uint8_t b, uint8_t a){
-    bool val_return;
+    // SDL_TEXTUREACCESS_STREAMING for changes with buffer
+    // SDL_PIXELFORMAT_RGBA8888 what used in architecture x86
+    texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, _buffer_size_x, _buffer_size_y);
+
+}
+
+// -----------header functions-----------
+bool Renderer2DInit(Renderer2DMetada* metadata, bool* run, uint8_t r, uint8_t g, uint8_t b, uint8_t a, int buffer_size_x, int buffer_size_y){
+    // set variables
+    _buffer_size_x = buffer_size_x;
+    _buffer_size_y = buffer_size_y;
+
+    // return value
+    bool val_return = true;
 
     // set metadata 
     if (!SDL_SetAppMetadataProperty(SDL_PROP_APP_METADATA_NAME_STRING, metadata->name_aplication) ) 
@@ -83,28 +120,15 @@ bool Renderer2DInit(Renderer2DMetada* metadata, bool* run, uint8_t r, uint8_t g,
         ErrorSDLPrint("SDL_PROP_APP_METADATA_TYPE_STRING"); 
     }
 
-
-
-    
-
 	// initialize video sdl
 	if (!SDL_Init(SDL_INIT_VIDEO)) ErrorCrashSDLPrint("SDL_INIT_VIDEO"); 
 
-    // window init
-    window = SDL_CreateWindow(metadata->name_aplication, metadata->size_x, metadata->size_y, SDL_WINDOW_RESIZABLE);
-	if (window == NULL) ErrorCrashSDLPrint("SDL_CREATE_WINDOW");
+    // initializes
+    InitWindow(metadata);
 
-    // renderer init 
-    // auto take driver for rendering
-    renderer = SDL_CreateRenderer(window, NULL);
-    if (renderer == NULL) ErrorCrashSDLPrint("SDL_CREATE_RENDERER");
-    // set clear data
-    if (!SDL_SetRenderDrawColor(renderer, r, g, b, a))
-    {
-        val_return = false;
-        ErrorSDLPrint("SDL_SET_RENDER_DRAW_COLOR");
-    }
+    InitRenderer(r, g, b, a, &val_return);
 
+    InitTexture();
 
     // set run_true
     run_true = run;
@@ -117,6 +141,7 @@ bool Renderer2DInit(Renderer2DMetada* metadata, bool* run, uint8_t r, uint8_t g,
 
 
 void Renderer2DDestroy(){
+    if (texture != NULL) SDL_DestroyTexture(texture);
     if (renderer != NULL) SDL_DestroyRenderer(renderer);
     if (window != NULL) SDL_DestroyWindow(window);
     SDL_Quit();
@@ -126,7 +151,29 @@ void Renderer2DDestroy(){
 bool Renderer2DClear(){
     return SDL_RenderClear(renderer);
 }
+
+bool Renderer2DSetBufferCollor(void* new_buffer){
+    bool val_return = true;
+
+    int pitch;
+    void* old_buffer;
+    // lock write only mode
+    if(!SDL_LockTexture(texture, NULL, &old_buffer, &pitch))
+    {
+        val_return = false;
+        ErrorSDLPrint("SDL_LOCK_TEXTURE");
+    }
+
+    // copy data
+    memcpy(old_buffer, new_buffer, pitch * _buffer_size_y);
+    // unlock
+    SDL_UnlockTexture(texture);
+    // update renderTexture
+    SDL_RenderTexture(renderer, texture, NULL, NULL);
+    return val_return;
+}
 bool Renderer2DPresent(){
+    
     return SDL_RenderPresent(renderer);
 }
 

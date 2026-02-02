@@ -25,19 +25,34 @@ int main (int argc, char *argv[]){
 	// run main while loop
 	bool run;
     // black clear color
-	Renderer2DInit(metadata, &run, 0, 0, 0, 1);
+	if(!Renderer2DInit(metadata, &run, 0, 0, 0, 1, 100, 100)) printf("Error renderer2dinit\n");
 
+    // old
+    uint32_t* rgba = malloc(100 * 100 * sizeof(uint32_t));
+
+    for (int x = 0; x < 100; x++){
+        for (int y = 0; y < 50; y++){
+            rgba[y * 100 + x] = 0xFF0000FF;
+        }
+    }
 
 	printf("START GAME OF LIFE\n");
 
 	while (run){
         Renderer2DCheckEvents();
         if (!Renderer2DClear()) printf("Error rendering clear\n");
+        
+        if (!Renderer2DSetBufferCollor(rgba)) printf("Error Buffer color\n");
+
         if (!Renderer2DPresent()) printf("Error rendering present\n");
 
-	}
-	printf("END GAME OF LIFE\n");
+ 
 
+	}
+
+
+
+	printf("END GAME OF LIFE\n");
     Renderer2DDestroy();
 
     return 0;
