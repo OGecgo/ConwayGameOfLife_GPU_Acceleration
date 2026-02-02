@@ -1,0 +1,20 @@
+
+#Ignore all files and folders by default
+*
+
+# Do not ignore
+!.gitignore
+
+!Makefile
+
+!*.c
+!*.h
+!**/*.c
+!**/*.h
+
+!*.pdf
+!**/*.pdf
+
+!.github/
+
+

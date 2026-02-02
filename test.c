@@ -1,7 +1,13 @@
+/*
+ * Test program for Renderer2D
+ * Creates a red/black split pattern to test GPU rendering
+ */
+
 #include <SDL3/SDL_main.h>
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 // metadata
 #include "WindowData.h"
@@ -12,8 +18,8 @@ int main (int argc, char *argv[]){
 
 	// metadata
 	Renderer2DMetada* metadata = malloc(sizeof(Renderer2DMetada));
-	metadata->size_x = SIZE_X;
-	metadata->size_y = SIZE_Y;
+	metadata->window_size_x = WINDOW_SIZE_X;
+	metadata->window_size_y = WINDOW_SIZE_Y;
 	metadata->name_aplication = NAME_APLICATION;
 	metadata->version = VERSION;
 	metadata->reverse_domain = REVERSE_DOMAIN;

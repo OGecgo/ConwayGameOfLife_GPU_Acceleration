@@ -1,60 +1,45 @@
+/*
+ * Simple 2D renderer abstraction layer for SDL3
+ * Used for Conway's Game of Life GPU acceleration
+ */
+
 #ifndef RENDERER2D_H
 #define RENDERER2D_H
 
-
-// Renderer2D need for simple with abstractions usage of sdl lib
-
-
-/*
-    lib using is SDL3
-    in main you should include include <SDL3/SDL_main.h> for
-    properly work SDL
-*/
-
-
-
+// SDL3 library - include <SDL3/SDL_main.h> in main for proper initialization
 #include <stdbool.h>
 #include <stdint.h>
 
-
+// Application metadata for SDL3 setup
 typedef struct
 {
-    int size_x;
-    int size_y;
-    char* name_aplication;
-    char* version;
-    char* reverse_domain;
-    char* creator;
-    char* copyright;
-    char* url;
-    char* type_aplication;
-}Renderer2DMetada;
+    int window_size_x, window_size_y;    // Window size
+    char *name_aplication; // App name
+    char *version;         // Version string
+    char *reverse_domain;  // Domain ID
+    char *creator;         // Author
+    char *copyright;       // Copyright info
+    char *url;             // Project URL
+    char *type_aplication; // App type
+} Renderer2DMetada;
 
-// buffer collor
+// Functions
+// Initialize renderer with window settings and clear color
+// run_true: controls main loop, set by events and SIGINT signal
+// metadata can be freed after this call
+bool Renderer2DInit(Renderer2DMetada *metadata, bool *run_true, uint8_t r, uint8_t g, uint8_t b, uint8_t a, int buffer_size_x, int buffer_size_y);
 
-
-/* 
-    run_true is value what used for main while
-    run_true added to events for sdl and to signal SIGINT
-    by default run_true seted by initRenderer with true
-*/
-// if return false is error
-// r, g, b, a is clear color
-// after added metadata to Render2DInit. metadata can be free
-bool Renderer2DInit(Renderer2DMetada* metadata, bool* run_true,  uint8_t r, uint8_t g, uint8_t b, uint8_t a, int buffer_size_x, int buffer_size_y);
+// Clean up SDL resources
 void Renderer2DDestroy();
 
-// if use buffer collor. you should do clear beffor give new_buffer
-bool Renderer2DSetBufferCollor(void* new_buffer); 
-bool Renderer2DPresent(); 
+// Update color buffer (clear buffer before new data)
+bool Renderer2DSetBufferCollor(void *new_buffer);
 
-// NODE:
-/*
-    Note that Windows (and possibly other platforms) has a quirk 
-    about how it handles events while dragging/resizing a window, 
-    which can cause this function to block for significant amounts of time. 
-    Technical explanations and solutions are discussed on the wiki:
-*/
-// Check only quite event
+// Show current frame on screen
+bool Renderer2DPresent();
+
+// Process events (handles quit events)
+// Note: may block during window drag/resize on some platforms
 void Renderer2DCheckEvents();
+
 #endif
