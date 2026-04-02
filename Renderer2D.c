@@ -25,12 +25,12 @@ static bool *run_true;
 int _buffer_size_x, _buffer_size_y;
 
 // Error handling
-void ErrorSDLPrint(char *error)
+static void ErrorSDLPrint(char *error)
 {
     printf("ERROR - %s: %s\n", error, SDL_GetError());
 }
 
-void ErrorCrashSDLPrint(char *error)
+static void ErrorCrashSDLPrint(char *error)
 {
     printf("CRITICAL ERROR - %s: %s\n", error, SDL_GetError());
     Renderer2DDestroy();
@@ -38,20 +38,20 @@ void ErrorCrashSDLPrint(char *error)
 }
 
 // Signal handler for Ctrl+C
-void SignalHandler(int sig)
+static void SignalHandler(int sig)
 {
     exit(sig);
 }
 
 // Initialization helpers
-void InitWindow(Renderer2DMetada *metadata)
+static void InitWindow(Renderer2DMetada *metadata)
 {
     window = SDL_CreateWindow(metadata->name_aplication, metadata->window_size_x, metadata->window_size_y, SDL_WINDOW_RESIZABLE);
     if (window == NULL)
         ErrorCrashSDLPrint("SDL_CREATE_WINDOW");
 }
 
-void InitRenderer(uint8_t r, uint8_t g, uint8_t b, uint8_t a, bool *val_return)
+static void InitRenderer(uint8_t r, uint8_t g, uint8_t b, uint8_t a, bool *val_return)
 {
     // Create renderer with auto driver selection
     renderer = SDL_CreateRenderer(window, NULL);
@@ -69,7 +69,7 @@ void InitRenderer(uint8_t r, uint8_t g, uint8_t b, uint8_t a, bool *val_return)
     SDL_RenderClear(renderer);
 }
 
-void InitTexture()
+static void InitTexture()
 {
     // Create streaming texture for color buffer updates
     texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, _buffer_size_x, _buffer_size_y);

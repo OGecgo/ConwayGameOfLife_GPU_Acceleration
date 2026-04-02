@@ -3,6 +3,9 @@
 
 #include <stdbool.h>
 
+// bitmap use the default data for window from WindowData.h
+
+
 // you draw new values to bitmap
 typedef struct
 {

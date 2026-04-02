@@ -13,7 +13,7 @@
 // static array of rgba colors
 static uint32_t *rgba8888;
 
-void ConverBitmapToRGBA8888(Bitmap *bitmap)
+static void ConverBitmapToRGBA8888(Bitmap *bitmap)
 {
     int size_b = bitmap->height_bitmap * bitmap->width_bitmap;
 
