@@ -1,5 +1,5 @@
 
-FILES = test.c Renderer2D.c
+FILES = main.c Renderer2D.c Map.c GameOfLife.c
 EXEC = test
 LIB = -lSDL3
 

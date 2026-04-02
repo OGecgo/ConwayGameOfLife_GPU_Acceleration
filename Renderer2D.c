@@ -15,13 +15,13 @@
 #include <stdbool.h>
 #include <signal.h>
 
-// Global SDL objects
-SDL_Window *window;
-SDL_Renderer *renderer;
-SDL_Texture *texture;
+// Static SDL objects
+static SDL_Window *window;
+static SDL_Renderer *renderer;
+static SDL_Texture *texture;
 
 // Application state
-bool *run_true;
+static bool *run_true;
 int _buffer_size_x, _buffer_size_y;
 
 // Error handling
@@ -78,7 +78,10 @@ void InitTexture()
 }
 
 // Main initialization function
-bool Renderer2DInit(Renderer2DMetada *metadata, bool *run, uint8_t r, uint8_t g, uint8_t b, uint8_t a, int buffer_size_x, int buffer_size_y)
+bool Renderer2DInit(
+    Renderer2DMetada *metadata, bool *run,
+    uint8_t r, uint8_t g, uint8_t b, uint8_t a,
+    int buffer_size_x, int buffer_size_y)
 {
     _buffer_size_x = buffer_size_x;
     _buffer_size_y = buffer_size_y;
@@ -129,6 +132,9 @@ bool Renderer2DInit(Renderer2DMetada *metadata, bool *run, uint8_t r, uint8_t g,
     InitWindow(metadata);
     InitRenderer(r, g, b, a, &val_return);
     InitTexture();
+
+    // turn of scale mode
+    SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_NEAREST);
 
     // Setup main loop control and signal handler
     run_true = run;

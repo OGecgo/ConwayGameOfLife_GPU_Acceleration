@@ -23,11 +23,17 @@ typedef struct
     char *type_aplication; // App type
 } Renderer2DMetada;
 
+
 // Functions
 // Initialize renderer with window settings and clear color
 // run_true: controls main loop, set by events and SIGINT signal
 // metadata can be freed after this call
-bool Renderer2DInit(Renderer2DMetada *metadata, bool *run_true, uint8_t r, uint8_t g, uint8_t b, uint8_t a, int buffer_size_x, int buffer_size_y);
+bool Renderer2DInit
+(
+    Renderer2DMetada *metadata, bool *run_true, 
+    uint8_t r, uint8_t g, uint8_t b, uint8_t a, 
+    int buffer_size_x, int buffer_size_y
+);
 
 // Clean up SDL resources
 void Renderer2DDestroy();
