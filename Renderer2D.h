@@ -48,4 +48,4 @@ bool Renderer2DPresent();
 // Note: may block during window drag/resize on some platforms
 void Renderer2DCheckEvents();
 
-#endif
+#endif // RENDERER2D_H

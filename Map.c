@@ -2,6 +2,7 @@
 
 #include "WindowData.h"
 #include "Renderer2D.h"
+#include "Bitmap.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -15,15 +16,15 @@ static uint32_t *rgba8888;
 
 static void ConverBitmapToRGBA8888(Bitmap *bitmap)
 {
-    int size_b = bitmap->height_bitmap * bitmap->width_bitmap;
+    int size_b = bitmap->height * bitmap->width;
 
     for (int i = 0; i < size_b; i++)
     {
-        rgba8888[i] = bitmap->map_of_blocks[i] ? 0xFFFFFFFF : 0x000000FF;
+        rgba8888[i] = bitmap->map[i] ? 0xFFFFFFFF : 0x000000FF;
     }
 }
 
-Bitmap *MapInit(int width_bitmap, int height_bitmap, bool *run_main_while)
+void MapInit(Bitmap* bitmap, bool *run_main_while)
 {
     // set metadata
     Renderer2DMetada *metadata = malloc(sizeof(Renderer2DMetada));
@@ -38,45 +39,26 @@ Bitmap *MapInit(int width_bitmap, int height_bitmap, bool *run_main_while)
     metadata->type_aplication = TYPE_APLICATION;
 
     // black backsreen
-    if (!Renderer2DInit(metadata, run_main_while, 0, 0, 0, 1, width_bitmap, height_bitmap))
+    if (!Renderer2DInit(metadata, run_main_while, 0, 0, 0, 1, bitmap->width, bitmap->height))
         printf("\nError Renderer2DInit\n");
     // do not need again
     free(metadata);
 
-    int size_map = width_bitmap * height_bitmap;
+    int size_map = bitmap->width * bitmap->height;
 
     // set pixels rendering black
     rgba8888 = malloc(sizeof(uint32_t) * size_map);
     memset(rgba8888, 0x000000FF, size_map);
-
-    // set bitmap and retunr
-    Bitmap *bitmap = malloc(sizeof(Bitmap));
-    bitmap->height_bitmap = height_bitmap;
-    bitmap->width_bitmap = width_bitmap;
-    bitmap->map_of_blocks = malloc(sizeof(bool) * size_map);
-    memset(bitmap->map_of_blocks, false, size_map);
-    return bitmap;
 }
 
-void MapBitmapDestroy(Bitmap *bitmap)
-{
-    free(bitmap->map_of_blocks);
-    free(bitmap);
-}
 
 void MapDestroy()
 {
     Renderer2DDestroy();
 }
 
-// every frame need to clean bitmap
-void MapCleanBitmap(Bitmap *bitmap)
-{
-    memset(bitmap->map_of_blocks, false, bitmap->height_bitmap * bitmap->width_bitmap);
-}
-
 // set bitmap and present it
-void MapSetNewBitmap(Bitmap *bitmap)
+void MapUpdateBitmap(Bitmap *bitmap)
 {
     ConverBitmapToRGBA8888(bitmap);
 

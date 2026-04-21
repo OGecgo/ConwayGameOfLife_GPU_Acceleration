@@ -13,22 +13,37 @@
 // metadata
 #include "WindowData.h"
 
-#include "GameOfLife.h"
+#include "Map.h"
+#include "Bitmap.h"
 
 int main (int argc, char *argv[]){
 
     bool run;
-    //set map
-    GameOfLife* b = GameOfLifeInit(10, 10, &run);
-    GameOfLifeGetPresetMapValue(b);
+    // buffer
+    Bitmap* bitmap = BitmapInit(10, 10);
+    //create window
+    MapInit(bitmap, &run);
 
 	printf("START GAME OF LIFE\n");
 
+    // set values
+    bool* map = bitmap->map;
+    for(int i = 0; i < bitmap->width * bitmap->height; i++){
+        if (i%4 == 0)
+            map[i] = true;
+        // else if (i%5 == 0)
+        //     map[i] = true;
+    }
+    // main loop
 	while (run){
-        GameOfLifeUpdate(b);
+        MapUpdateBitmap(bitmap);
 	}
 
-    GameOfLifeDestroy(b);
+
+    // clear memmory
+    BitmapDestroy(bitmap);
+    MapDestroy();
+
 	printf("END GAME OF LIFE\n");
 
     return 0;
