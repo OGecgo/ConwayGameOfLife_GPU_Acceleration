@@ -2,18 +2,25 @@
 #Ignore all files and folders by default
 *
 
+
+
 # Do not ignore
 !.gitignore
 
 !Makefile
 
+!**/
+
+!*.cu
 !*.c
 !*.h
+!**/*.cu
 !**/*.c
 !**/*.h
 
 !*.pdf
 !**/*.pdf
+!**/*.drawio
 
 !.github/
 

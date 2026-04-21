@@ -1,4 +1,4 @@
-#include "Map.h"
+#include "Window.h"
 
 #include "WindowData.h"
 #include "Renderer2D.h"
@@ -24,7 +24,7 @@ static void ConverBitmapToRGBA8888(Bitmap *bitmap)
     }
 }
 
-void MapInit(Bitmap* bitmap, bool *run_main_while)
+void WindowInit(Bitmap* bitmap, bool *run_main_while)
 {
     // set metadata
     Renderer2DMetada *metadata = malloc(sizeof(Renderer2DMetada));
@@ -52,13 +52,13 @@ void MapInit(Bitmap* bitmap, bool *run_main_while)
 }
 
 
-void MapDestroy()
+void WindowDestroy()
 {
     Renderer2DDestroy();
 }
 
 // set bitmap and present it
-void MapUpdateBitmap(Bitmap *bitmap)
+void WindowUpdateBitmap(Bitmap *bitmap)
 {
     ConverBitmapToRGBA8888(bitmap);
 

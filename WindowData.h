@@ -6,7 +6,7 @@
 #ifndef WINDOWDATA_H
 #define WINDOWDATA_H
 
-// Application metadata used by Map.h
+// Application metadata used by Window.h
 #define WINDOW_SIZE_X 100
 #define WINDOW_SIZE_Y 100
 

@@ -1,0 +1,143 @@
+<mxfile host="65bd71144e">
+    <diagram name="Σελίδα-1" id="RHhtozIAqVEN69dNCovi">
+        <mxGraphModel dx="3126" dy="791" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0" adaptiveColors="simple">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="18" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#eeeeee;strokeColor=#36393d;" vertex="1" parent="1">
+                    <mxGeometry x="90" y="20" width="870" height="750" as="geometry"/>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endSize=12;endArrow=block;endFill=0;dashed=1;" parent="1" source="E8FnLtc5xyWOxR3w0xcJ-1" target="E8FnLtc5xyWOxR3w0xcJ-13" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="490" y="165"/>
+                            <mxPoint x="490" y="165"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-1" value="Renderer2D.c" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="40" width="440" height="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-2" value="SDL_Window *window;&lt;br&gt;SDL_Renderer *renderer;&lt;br&gt;SDL_Texture *texture;&lt;br&gt;&lt;br&gt;bool *run_true;&lt;br&gt;int _buffer_size_x, _buffer_size_y;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="E8FnLtc5xyWOxR3w0xcJ-1" vertex="1">
+                    <mxGeometry y="26" width="440" height="104" as="geometry"/>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-4" value="&lt;div&gt;static void ErrorSDLPrint(char *error);&lt;/div&gt;&lt;div&gt;static void ErrorCrashSDLPrint(char *error);&lt;/div&gt;&lt;div&gt;static void SignalHandler(int sig);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;static void InitWindow(Renderer2DMetadata* metadata);&lt;/div&gt;&lt;div&gt;static void InitRenderer(uint8_t r, uint8_t g, uint8_t b, uint8_t a, bool *val_return);&lt;/div&gt;&lt;div&gt;static void InitTexture();&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;bool Renderer2DInit&lt;/div&gt;&lt;div&gt;(&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Renderer2DMetada *metadata, bool *run_true,&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;uint8_t r, uint8_t g, uint8_t b, uint8_t a,&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;int buffer_size_x, int buffer_size_y&lt;/div&gt;&lt;div&gt;);&lt;/div&gt;&lt;div&gt;void Renderer2DDestroy();&lt;br&gt;&lt;br&gt;bool Renderer2DSetBufferCollor(void *new_buffer);&lt;br&gt;bool Renderer2DPresent();&lt;br&gt;&lt;br&gt;void Renderer2DCheckEvents();&lt;/div&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="E8FnLtc5xyWOxR3w0xcJ-1" vertex="1">
+                    <mxGeometry y="130" width="440" height="320" as="geometry"/>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-13" value="Renderer2D.h" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="105" y="40" width="320" height="250" as="geometry"/>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-14" value="typedef struct Render2DMetadata" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="E8FnLtc5xyWOxR3w0xcJ-13" vertex="1">
+                    <mxGeometry y="26" width="320" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-15" value="&lt;div&gt;bool Renderer2DInit&lt;/div&gt;&lt;div&gt;(&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Renderer2DMetada *metadata, bool *run_true,&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;uint8_t r, uint8_t g, uint8_t b, uint8_t a,&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;int buffer_size_x, int buffer_size_y&lt;/div&gt;&lt;div&gt;);&lt;/div&gt;&lt;div&gt;void Renderer2DDestroy();&lt;br&gt;&lt;br&gt;bool Renderer2DSetBufferCollor(void *new_buffer);&lt;br&gt;bool Renderer2DPresent();&lt;br&gt;&lt;br&gt;void Renderer2DCheckEvents();&lt;/div&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="E8FnLtc5xyWOxR3w0xcJ-13" vertex="1">
+                    <mxGeometry y="52" width="320" height="198" as="geometry"/>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endSize=12;endArrow=block;endFill=0;dashed=1;" parent="1" source="E8FnLtc5xyWOxR3w0xcJ-17" target="E8FnLtc5xyWOxR3w0xcJ-20" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;dashed=1;endSize=12;" parent="1" source="E8FnLtc5xyWOxR3w0xcJ-17" target="E8FnLtc5xyWOxR3w0xcJ-13" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-17" value="Window.c" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="115" y="537" width="300" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-18" value="static uint32_t *rgba8888;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="E8FnLtc5xyWOxR3w0xcJ-17" vertex="1">
+                    <mxGeometry y="26" width="300" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-19" value="static void ConvertBitmapToRGBA8888(bool *bitmap);&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;void WindowInit(Bitmap* bitmap, bool run_main_loop);&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;void WindowDestroy();&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;void WindowUpdateBitmap(Bitmap *bitmap);&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="E8FnLtc5xyWOxR3w0xcJ-17" vertex="1">
+                    <mxGeometry y="50" width="300" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-20" value="Window.h" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="562" width="300" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-22" value="&lt;div&gt;void WindowInit(Bitmap* bitmap, bool run_main_loop);&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;void WindowDestroy();&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent; color: rgb(63, 63, 63);&quot;&gt;void WindowUpdateBitmap(Bitmap *bitmap);&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="E8FnLtc5xyWOxR3w0xcJ-20" vertex="1">
+                    <mxGeometry y="26" width="300" height="74" as="geometry"/>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-25" value="&lt;div&gt;GameOfLife&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;.c&lt;/span&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="980" y="160" width="300" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-27" value="&lt;span style=&quot;color: rgb(63, 63, 63);&quot;&gt;Bitmap* GameOfLifeUpdateBitmap(GameOfLife *gof);&lt;/span&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="E8FnLtc5xyWOxR3w0xcJ-25" vertex="1">
+                    <mxGeometry y="26" width="300" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="&lt;div&gt;GameOfLife&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;.h&lt;/span&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="1130" y="430" width="310" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;Bitmap* GameOfLifeUpdateBitmap(GameOfLife *gof);&lt;/span&gt;&lt;/div&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="2" vertex="1">
+                    <mxGeometry y="26" width="310" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endSize=12;endArrow=block;endFill=0;dashed=1;" parent="1" source="E8FnLtc5xyWOxR3w0xcJ-25" target="2" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1100" y="360" as="sourcePoint"/>
+                        <mxPoint x="535" y="660" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1130" y="320"/>
+                            <mxPoint x="1220" y="320"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="8" value="&lt;div&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;main&lt;/font&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=80;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;autosize=0;fixedWidth=0;resizeHeight=0;" parent="1" vertex="1">
+                    <mxGeometry x="1220" y="577" width="130" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=12;" parent="1" source="8" target="E8FnLtc5xyWOxR3w0xcJ-20" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1020" y="660" as="sourcePoint"/>
+                        <mxPoint x="925" y="660" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="12" value="Bitmap.h" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="1135" y="746" width="300" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="typedef struct Bitmap;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="12" vertex="1">
+                    <mxGeometry y="26" width="300" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="&lt;div&gt;Bitmap* BitmapInit(int width, int heigh);&lt;/div&gt;&lt;div&gt;void BitmapDestroy(Bitmap *bitmap);&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;void BitmapClean(Bitmap *bitmap);&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="12" vertex="1">
+                    <mxGeometry y="52" width="300" height="78" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;- ftiahnw bitmap xehoristo&lt;/font&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(63, 63, 63); font-size: 20px; background-color: transparent;&quot;&gt;- tha ehw nea PresetData opou ekei tha vazw by default times&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;- episeis na valw hrono. gia na min einai kateftian alla na eleghete me ti tahitita tha zei to paihnidi&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;- min pw. an ginete kata tin diarkia tou game&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;- Mathenw ton algorithmo gia to gmae of life&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;- ftiahnw to game of life&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-1000" y="770" width="880" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=12;" edge="1" parent="1" source="8" target="12">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="600" y="632" as="sourcePoint"/>
+                        <mxPoint x="905" y="740" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" value="Visual Output" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;" vertex="1" parent="1">
+                    <mxGeometry x="465" y="730" width="145" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=12;" edge="1" parent="1" source="8" target="2">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1230" y="622" as="sourcePoint"/>
+                        <mxPoint x="1055" y="622" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="24" value="&lt;div&gt;GameOfLife_Cuda&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;.cu&lt;/span&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#cdeb8b;strokeColor=#36393d;" vertex="1" parent="1">
+                    <mxGeometry x="1300" y="160" width="310" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="&lt;span style=&quot;color: rgb(63, 63, 63);&quot;&gt;Bitmap* GameOfLifeUpdateBitmap(GameOfLife *gof);&lt;/span&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" vertex="1" parent="24">
+                    <mxGeometry y="26" width="310" height="34" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endSize=12;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1" source="24" target="2">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1140" y="230" as="sourcePoint"/>
+                        <mxPoint x="1295" y="440" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1455" y="320"/>
+                            <mxPoint x="1350" y="320"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="30" style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;curved=0;endArrow=block;endFill=0;dashed=1;endSize=12;" edge="1" parent="1" source="27" target="12">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="Bitmap.c" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#ffcccc;strokeColor=#36393d;" vertex="1" parent="1">
+                    <mxGeometry x="1135" y="940" width="300" height="104" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="&lt;div&gt;Bitmap* BitmapInit(int width, int heigh);&lt;/div&gt;&lt;div&gt;void BitmapDestroy(Bitmap *bitmap);&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;void BitmapClean(Bitmap *bitmap);&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" vertex="1" parent="27">
+                    <mxGeometry y="26" width="300" height="78" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

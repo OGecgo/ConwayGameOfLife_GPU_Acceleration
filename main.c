@@ -10,10 +10,8 @@
 #include <string.h>
 #include <stdbool.h>
 
-// metadata
-#include "WindowData.h"
 
-#include "Map.h"
+#include "Window.h"
 #include "Bitmap.h"
 
 int main (int argc, char *argv[]){
@@ -22,7 +20,7 @@ int main (int argc, char *argv[]){
     // buffer
     Bitmap* bitmap = BitmapInit(10, 10);
     //create window
-    MapInit(bitmap, &run);
+    WindowInit(bitmap, &run);
 
 	printf("START GAME OF LIFE\n");
 
@@ -36,13 +34,13 @@ int main (int argc, char *argv[]){
     }
     // main loop
 	while (run){
-        MapUpdateBitmap(bitmap);
+        WindowUpdateBitmap(bitmap);
 	}
 
 
     // clear memmory
     BitmapDestroy(bitmap);
-    MapDestroy();
+    WindowDestroy();
 
 	printf("END GAME OF LIFE\n");
 
