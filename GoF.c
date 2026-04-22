@@ -6,6 +6,8 @@
 
 #include <stdio.h>
 
+
+
 GoF* GoFInit(){
     GoF* gof = malloc(sizeof(GoF));
     gof->bitmap = BitmapInit(MAP_HEIGHT, MAP_WIDTH);
@@ -24,11 +26,9 @@ GoF* GoFDestroy(GoF* gof){
 
 
 
-
 void GoFUpdateBitmap(GoF* gof){
     // setup copy map
     memcpy(gof->copy_map, gof->bitmap->map, sizeof(bool) * gof->bitmap->size);
-
 
     for (int pos = 0; pos < gof->bitmap->size; pos++){
         int lifes = 0;
@@ -43,14 +43,20 @@ void GoFUpdateBitmap(GoF* gof){
                 if (check_pos < 0 || check_pos > gof->bitmap->size) continue;
                 // width check (do not chaing layer)
                 if (check_pos / MAP_WIDTH != (check_pos - w) / MAP_WIDTH) continue;
-
-                // printf("%d\n", check_pos);
-
+                // add if true
                 if (gof->copy_map[check_pos] == true) lifes++;
             }
         }
-        printf("%d\n", lifes);
-        break;
+        
+
+        // birth - death block
+        if (gof->bitmap->map[pos] == true){
+            if (lifes < MIN_LIFES_FOR_SURVIVE || lifes > MAX_LIFES_FOR_SURVIVE) 
+                gof->bitmap->map[pos] = false;
+        }else{
+            if (lifes >= MIN_LIFES_FOR_BIRTH && lifes <= MAX_LIFES_FOR_BIRTH) 
+                gof->bitmap->map[pos] = true;
+        }
     }
     
 }

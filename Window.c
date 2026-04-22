@@ -16,9 +16,7 @@ static uint32_t *rgba8888;
 
 static void ConverBitmapToRGBA8888(Bitmap *bitmap)
 {
-    int size_b = bitmap->height * bitmap->width;
-
-    for (int i = 0; i < size_b; i++)
+    for (int i = 0; i < bitmap->size; i++)
     {
         rgba8888[i] = bitmap->map[i] ? 0xFFFFFFFF : 0x000000FF;
     }
