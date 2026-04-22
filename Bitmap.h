@@ -6,6 +6,7 @@
 typedef struct
 {
     bool* map;
+    int size;
     int width;
     int height;
 } Bitmap;

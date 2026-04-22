@@ -1,7 +1,7 @@
 
 FILES = main.c Renderer2D.c Window.c Bitmap.c
-FILES_CPU = GameOfLife.c
-FILES_GPU = GameOfLife_Cuda.cu
+FILES_CPU = GoF.c
+FILES_GPU = GoF_Cuda.cu
 
 
 EXEC = test

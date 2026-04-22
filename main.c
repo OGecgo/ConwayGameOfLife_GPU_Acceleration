@@ -13,12 +13,15 @@
 
 #include "Window.h"
 #include "Bitmap.h"
+#include "GoF.h"
 
 int main (int argc, char *argv[]){
 
     bool run;
+    // set up game of life 
+    GoF* gof = GoFInit();
     // buffer
-    Bitmap* bitmap = BitmapInit(10, 10);
+    Bitmap* bitmap = GoFGetBitmap(gof);
     //create window
     WindowInit(bitmap, &run);
 
@@ -27,14 +30,16 @@ int main (int argc, char *argv[]){
     // set values
     bool* map = bitmap->map;
     for(int i = 0; i < bitmap->width * bitmap->height; i++){
-        if (i%4 == 0)
+        if (i%5 == 0)
             map[i] = true;
         // else if (i%5 == 0)
         //     map[i] = true;
     }
     // main loop
 	while (run){
+        GoFUpdateBitmap(gof);
         WindowUpdateBitmap(bitmap);
+        break;
 	}
 
 

@@ -7,9 +7,9 @@ Bitmap* BitmapInit(int height, int width){
     Bitmap* bitmap = malloc(sizeof(Bitmap));
     bitmap->height = height;
     bitmap->width  = width;
-    int size = height * width;
-    bitmap->map = malloc(sizeof(bool) * size);
-    memset(bitmap->map, false, size);
+    bitmap->size = height * width;
+    bitmap->map = malloc(sizeof(bool) * bitmap->size);
+    memset(bitmap->map, false, bitmap->size);
     return bitmap;
 }
 

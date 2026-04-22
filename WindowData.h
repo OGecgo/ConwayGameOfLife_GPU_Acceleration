@@ -15,7 +15,7 @@
 #define REVERSE_DOMAIN "com.github.ogecgo.conwaygameoflife_gpu_acceleration"
 #define CREATOR "OGecgo"
 #define COPYRIGHT ""
-#define GITHUB_REPOSITORY "https://github.com/OGecgo/ConwayGameOfLife_GPU_Acceleration"
+#define GITHUB_REPOSITORY "https://github.com/OGecgo/ConwayGoF_GPU_Acceleration"
 #define TYPE_APLICATION "game"
 
 #endif

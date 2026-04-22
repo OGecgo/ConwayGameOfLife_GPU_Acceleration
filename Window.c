@@ -44,11 +44,10 @@ void WindowInit(Bitmap* bitmap, bool *run_main_while)
     // do not need again
     free(metadata);
 
-    int size_map = bitmap->width * bitmap->height;
 
     // set pixels rendering black
-    rgba8888 = malloc(sizeof(uint32_t) * size_map);
-    memset(rgba8888, 0x000000FF, size_map);
+    rgba8888 = malloc(sizeof(uint32_t) * bitmap->size);
+    memset(rgba8888, 0x000000FF, bitmap->size);
 }
 
 
