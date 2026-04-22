@@ -1,4 +1,4 @@
-#include "GoF.h"
+#include "GoF.cuh"
 #include "GoFConfig.h"
 
 #include <stdlib.h>
@@ -9,9 +9,9 @@
 
 
 GoF* GoFInit(){
-    GoF* gof = malloc(sizeof(GoF));
+    GoF* gof = (GoF*)malloc(sizeof(GoF));
     gof->bitmap = BitmapInit(MAP_HEIGHT, MAP_WIDTH);
-    gof->copy_map = malloc(sizeof(bool) * gof->bitmap->size);
+    gof->copy_map = (bool*)malloc(sizeof(bool) * gof->bitmap->size);
     memcpy(gof->copy_map, gof->bitmap->map, sizeof(bool) * gof->bitmap->size);
     return gof;
 }
