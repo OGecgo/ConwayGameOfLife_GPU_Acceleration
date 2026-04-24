@@ -44,13 +44,14 @@ void GoFUpdateBitmap(GoF* gof){
                 // width check (do not chaing layer)
                 if (check_pos / MAP_WIDTH != (check_pos - w) / MAP_WIDTH) continue;
                 // add if true
-                if (gof->copy_map[check_pos] == true) lifes++;
+                lifes += gof->copy_map[check_pos];
             }
         }
         
 
         // birth - death block
         if (gof->bitmap->map[pos] == true){
+            lifes --;
             if (lifes < MIN_LIFES_FOR_SURVIVE || lifes > MAX_LIFES_FOR_SURVIVE) 
                 gof->bitmap->map[pos] = false;
         }else{

@@ -42,10 +42,9 @@ int main (int argc, char *argv[]){
     // set values
     bool* map = bitmap->map;
     for(int i = 0; i < bitmap->size; i++){
-        if (i%3 == 0)
+        if (i%2 == 0)
             map[i] = true;
-        else if (i%5 == 0)
-            map[i] = true;
+
     }
     // main loop
 	while (run){
