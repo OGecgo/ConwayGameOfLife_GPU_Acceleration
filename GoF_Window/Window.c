@@ -2,7 +2,7 @@
 
 #include "WindowData.h"
 #include "Renderer2D.h"
-#include "Bitmap.h"
+#include "../utils/Bitmap.h"
 
 #include <stdlib.h>
 #include <string.h>

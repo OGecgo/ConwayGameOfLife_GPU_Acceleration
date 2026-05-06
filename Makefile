@@ -1,9 +1,9 @@
 
-GPU_NO_SHARED_MEMORY_FILES = GoF_Canculations/GoF_No_shared_Memory.cu
-# GPU_SHARED_MEMORY_FILES= GoF_Canculations/GoF_shared_Memory.cu
-CPU_FILES = GoF_Canculations/GoF.c
+GPU_NO_SHARED_MEMORY_FILES = GoF_Canculation/GoF_No_shared_Memory.cu
+# GPU_SHARED_MEMORY_FILES= GoF_Canculation/GoF_shared_Memory.cu
+CPU_FILES = GoF_Canculation/GoF.c
 
-MAIN_FILES = main.c Gof_Window/Renderer2D.c Gof_Window/Window.c utils/Bitmap.c
+MAIN_FILES = main.c GoF_Window/Renderer2D.c GoF_Window/Window.c utils/Bitmap.c
 
 EXEC = test
 LOGS = logs.txt

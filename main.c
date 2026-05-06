@@ -11,10 +11,10 @@
 #include <stdbool.h>
 #include <time.h>
 
-#include "Window.h"
-#include "Bitmap.h"
+#include "GoF_Window/Window.h"
+#include "utils/Bitmap.h"
 
-#include "GoF.h"
+#include "GoF_Canculation/GoF.h"
 
 void sleepFor(double time){
     clock_t start = clock();
