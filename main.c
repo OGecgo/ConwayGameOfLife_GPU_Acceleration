@@ -26,7 +26,7 @@ void sleepFor(double time){
     
 }
 
-
+// melidika: prosthetw dio metrites. ta apotelesmata tha ta pernw apo to GoF
 int main (int argc, char *argv[]){
 
     bool run;
@@ -49,11 +49,14 @@ int main (int argc, char *argv[]){
     // main loop
 	while (run){
         WindowUpdateBitmap(bitmap);
-        GoFUpdateBitmap(gof);
 
-        sleepFor(0.05);
-        // printf("%d\n", gof->bitmap->map[1]);
-        // printf("%d\n", bitmap->map[0]);
+        // count time
+        clock_t start = clock();
+        GoFUpdateBitmap(gof);
+        clock_t end = clock();
+        printf("Time to update bitmap is: %f\n", (double)(end - start));
+        // for show
+        // sleepFor(0.05);
 	}
 
 

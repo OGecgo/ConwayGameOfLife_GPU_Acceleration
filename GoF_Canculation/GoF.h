@@ -1,18 +1,12 @@
-#ifndef GAMEOFLIFE_H
-#define GAMEOFLIFE_H
+#ifndef GOF_H
+#define GOF_H
+// compiler nvcc with extern c link name like a c 
+// main will compile like a c and they will waite liking like a c
 
 
-extern "C" {
-#include "Bitmap.h"
-}
+#include "../utils/Bitmap.h"
 
-
-
-typedef struct
-{
-    Bitmap* bitmap;
-    bool* copy_map;
-} GoF;
+typedef struct GoF GoF;
 
 
 
@@ -28,5 +22,4 @@ void GoFUpdateBitmap(GoF* gof);
 Bitmap* GoFGetBitmap(GoF* gof);
 
 
-
-#endif // GAMEOFLIFE_H
+#endif // GOF_H

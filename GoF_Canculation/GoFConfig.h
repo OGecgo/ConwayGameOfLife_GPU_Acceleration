@@ -3,8 +3,8 @@
 #define GOFCONFIG_H
 
 
-#define MAP_HEIGHT 100
-#define MAP_WIDTH  100
+#define MAP_HEIGHT 512
+#define MAP_WIDTH  512
 
 #define INTERACT_BLOCKS_AROUND 5 // horizontal x vertical = 11x11
 

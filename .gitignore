@@ -31,3 +31,5 @@
 !.github/
 
 
+#Ignore Trash
+trash/*

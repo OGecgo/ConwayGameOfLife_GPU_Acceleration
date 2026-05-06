@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 
-#include "Bitmap.h"
+#include "../utils/Bitmap.h"
 
 // Window use the default data for window from WindowData.h
 

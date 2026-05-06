@@ -1,4 +1,4 @@
-#include "GoF.cuh"
+#include "GoF.h"
 #include "GoFConfig.h"
 
 #include <stdlib.h>
@@ -7,11 +7,17 @@
 #include <stdio.h>
 
 
+struct GoF
+{
+    Bitmap* bitmap;
+    bool* copy_map;
+};
+
 
 GoF* GoFInit(){
-    GoF* gof = (GoF*)malloc(sizeof(GoF));
+    GoF* gof = malloc(sizeof(GoF));
     gof->bitmap = BitmapInit(MAP_HEIGHT, MAP_WIDTH);
-    gof->copy_map = (bool*)malloc(sizeof(bool) * gof->bitmap->size);
+    gof->copy_map = malloc(sizeof(bool) * gof->bitmap->size);
     memcpy(gof->copy_map, gof->bitmap->map, sizeof(bool) * gof->bitmap->size);
     return gof;
 }
@@ -40,17 +46,18 @@ void GoFUpdateBitmap(GoF* gof){
                 int check_pos;
                 check_pos = pos + h * MAP_WIDTH + w;
                 // height check (do not go out of buffer)
-                if (check_pos < 0 || check_pos > gof->bitmap->size) continue;
+                if (check_pos < 0 || check_pos >= gof->bitmap->size) continue;
                 // width check (do not chaing layer)
                 if (check_pos / MAP_WIDTH != (check_pos - w) / MAP_WIDTH) continue;
                 // add if true
-                if (gof->copy_map[check_pos] == true) lifes++;
+                lifes += gof->copy_map[check_pos];
             }
         }
         
 
         // birth - death block
         if (gof->bitmap->map[pos] == true){
+            lifes --;
             if (lifes < MIN_LIFES_FOR_SURVIVE || lifes > MAX_LIFES_FOR_SURVIVE) 
                 gof->bitmap->map[pos] = false;
         }else{
