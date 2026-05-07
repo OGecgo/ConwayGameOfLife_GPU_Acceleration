@@ -20,6 +20,9 @@ void GoFDestroy(GoF* gof);
 void GoFUpdateBitmap(GoF* gof);
 
 Bitmap* GoFGetBitmap(GoF* gof);
+// return the value of last step
+int GoFGetLive(GoF* gof);
+int GoFGetDeaths(GoF* gof);
 
 
 #endif // GOF_H

@@ -37,7 +37,6 @@ int main (int argc, char *argv[]){
     //create window
     WindowInit(bitmap, &run);
 
-	printf("START GAME OF LIFE\n");
 
     // set values
     bool* map = bitmap->map;
@@ -46,6 +45,8 @@ int main (int argc, char *argv[]){
             map[i] = true;
 
     }
+
+    printf("--START GAME OF LIFE--\n");
     // main loop
 	while (run){
         WindowUpdateBitmap(bitmap);
@@ -54,9 +55,12 @@ int main (int argc, char *argv[]){
         clock_t start = clock();
         GoFUpdateBitmap(gof);
         clock_t end = clock();
-        printf("Time to update bitmap is: %f\n", (double)(end - start));
-        // for show
-        // sleepFor(0.05);
+        int live = GoFGetLive(gof);
+        int deaths = GoFGetDeaths(gof);
+        double time = (double)(end - start)/CLOCKS_PER_SEC;
+        printf("Deaths::%d Live::%d Time::%f_sec\n", deaths, live, time);
+
+        // sleepFor(0.5);
 	}
 
 
@@ -65,7 +69,7 @@ int main (int argc, char *argv[]){
     BitmapDestroy(bitmap);
     WindowDestroy();
 
-	printf("END GAME OF LIFE\n");
+	printf("--END GAME OF LIFE--\n");
 
     return 0;
 }

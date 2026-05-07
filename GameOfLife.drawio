@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Σελίδα-1" id="RHhtozIAqVEN69dNCovi">
-        <mxGraphModel dx="613" dy="538" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0" adaptiveColors="simple">
+        <mxGraphModel dx="1188" dy="659" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0" adaptiveColors="simple">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -55,45 +55,38 @@
                     <mxGeometry y="26" width="300" height="74" as="geometry"/>
                 </mxCell>
                 <mxCell id="E8FnLtc5xyWOxR3w0xcJ-25" value="&lt;div&gt;GoF&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;.c&lt;/span&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#ffcccc;strokeColor=#36393d;" parent="1" vertex="1">
-                    <mxGeometry x="1000" y="370" width="300" height="60" as="geometry"/>
+                    <mxGeometry x="1045" y="70" width="300" height="140" as="geometry"/>
                 </mxCell>
-                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-27" value="&lt;span style=&quot;color: rgb(63, 63, 63);&quot;&gt;Bitmap* GoFUpdateBitmap(GoF *gof);&lt;/span&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="E8FnLtc5xyWOxR3w0xcJ-25" vertex="1">
-                    <mxGeometry y="26" width="300" height="34" as="geometry"/>
+                <mxCell id="33" value="&lt;span style=&quot;color: rgb(63, 63, 63);&quot;&gt;struct GoF&lt;/span&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;fontFamily=Helvetica;fontSize=12;" vertex="1" parent="E8FnLtc5xyWOxR3w0xcJ-25">
+                    <mxGeometry y="26" width="300" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="E8FnLtc5xyWOxR3w0xcJ-27" value="&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;GoF* GoFInit(Bitmap* bitmap);&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;void GoFDestroy(GoF* gof);&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;Bitmap* GoFUpdateBitmap(GoF *gof);&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;int GoFGetLive(GoF* gof);&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;int GoFGetDeaths(GoF* gof);&lt;/span&gt;&lt;/div&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;fontFamily=Helvetica;fontSize=12;" parent="E8FnLtc5xyWOxR3w0xcJ-25" vertex="1">
+                    <mxGeometry y="50" width="300" height="90" as="geometry"/>
                 </mxCell>
                 <mxCell id="2" value="&lt;div&gt;GoF&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;.h&lt;/span&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-                    <mxGeometry x="1160" y="562" width="310" height="134" as="geometry"/>
+                    <mxGeometry x="1040" y="340" width="310" height="134" as="geometry"/>
                 </mxCell>
-                <mxCell id="32" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;typedef struct GoF&lt;/span&gt;&lt;/div&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="2" vertex="1">
+                <mxCell id="32" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;typedef struct GoF GoF&lt;/span&gt;&lt;/div&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="2" vertex="1">
                     <mxGeometry y="26" width="310" height="24" as="geometry"/>
                 </mxCell>
-                <mxCell id="4" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;GoF* GoFInit(Bitmap* bitmap);&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;void GoFDestroy(GoF* gof);&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;Bitmap* GoFUpdateBitmap(GoF *gof);&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="2" vertex="1">
+                <mxCell id="4" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;GoF* GoFInit(Bitmap* bitmap);&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;void GoFDestroy(GoF* gof);&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;Bitmap* GoFUpdateBitmap(GoF *gof);&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;int GoFGetBirths(GoF* gof);&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;int GoFGetDeaths(GoF* gof);&lt;/span&gt;&lt;/div&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="2" vertex="1">
                     <mxGeometry y="50" width="310" height="84" as="geometry"/>
                 </mxCell>
-                <mxCell id="7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endSize=12;endArrow=block;endFill=0;dashed=1;" parent="1" source="E8FnLtc5xyWOxR3w0xcJ-25" target="2" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="1100" y="360" as="sourcePoint"/>
-                        <mxPoint x="535" y="660" as="targetPoint"/>
-                        <Array as="points">
-                            <mxPoint x="1130" y="500"/>
-                            <mxPoint x="1260" y="500"/>
-                        </Array>
-                    </mxGeometry>
-                </mxCell>
                 <mxCell id="8" value="&lt;div&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;main&lt;/font&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=80;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;autosize=0;fixedWidth=0;resizeHeight=0;" parent="1" vertex="1">
-                    <mxGeometry x="1250" y="760" width="130" height="70" as="geometry"/>
+                    <mxGeometry x="1130" y="577" width="130" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=12;" parent="1" source="8" target="E8FnLtc5xyWOxR3w0xcJ-20" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="1020" y="660" as="sourcePoint"/>
                         <mxPoint x="925" y="660" as="targetPoint"/>
                         <Array as="points">
-                            <mxPoint x="1110" y="795"/>
-                            <mxPoint x="1110" y="612"/>
+                            <mxPoint x="1100" y="612"/>
+                            <mxPoint x="1100" y="612"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="12" value="Bitmap.h" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-                    <mxGeometry x="1165" y="917" width="300" height="130" as="geometry"/>
+                    <mxGeometry x="780" y="917" width="300" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="13" value="typedef struct Bitmap;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="12" vertex="1">
                     <mxGeometry y="26" width="300" height="26" as="geometry"/>
@@ -105,6 +98,9 @@
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="600" y="632" as="sourcePoint"/>
                         <mxPoint x="905" y="740" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1195" y="982"/>
+                        </Array>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="19" value="Visual Output" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;" parent="1" vertex="1">
@@ -112,23 +108,17 @@
                 </mxCell>
                 <mxCell id="20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=12;" parent="1" source="8" target="2" edge="1">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="1230" y="622" as="sourcePoint"/>
-                        <mxPoint x="1055" y="622" as="targetPoint"/>
+                        <mxPoint x="1060" y="652" as="sourcePoint"/>
+                        <mxPoint x="885" y="652" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="24" value="&lt;div&gt;GoF_Cuda&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;.cu&lt;/span&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#cdeb8b;strokeColor=#36393d;" parent="1" vertex="1">
-                    <mxGeometry x="1320" y="370" width="310" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="25" value="&lt;span style=&quot;color: rgb(63, 63, 63);&quot;&gt;Bitmap* GoFUpdateBitmap(GoF *gof);&lt;/span&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="24" vertex="1">
-                    <mxGeometry y="26" width="310" height="34" as="geometry"/>
-                </mxCell>
-                <mxCell id="26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endSize=12;endArrow=block;endFill=0;dashed=1;" parent="1" source="24" target="2" edge="1">
+                <mxCell id="26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endSize=12;endArrow=block;endFill=0;dashed=1;" parent="1" source="E8FnLtc5xyWOxR3w0xcJ-25" target="2" edge="1">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="1140" y="230" as="sourcePoint"/>
-                        <mxPoint x="1295" y="440" as="targetPoint"/>
+                        <mxPoint x="1435" y="592" as="sourcePoint"/>
+                        <mxPoint x="1330" y="606" as="targetPoint"/>
                         <Array as="points">
-                            <mxPoint x="1455" y="500"/>
-                            <mxPoint x="1350" y="500"/>
+                            <mxPoint x="1195" y="330"/>
+                            <mxPoint x="1195" y="330"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
@@ -136,10 +126,48 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="27" value="Bitmap.c" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#ffcccc;strokeColor=#36393d;" parent="1" vertex="1">
-                    <mxGeometry x="810" y="930" width="300" height="104" as="geometry"/>
+                    <mxGeometry x="425" y="930" width="300" height="104" as="geometry"/>
                 </mxCell>
                 <mxCell id="29" value="&lt;div&gt;Bitmap* BitmapInit(int width, int heigh);&lt;/div&gt;&lt;div&gt;void BitmapDestroy(Bitmap *bitmap);&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;void BitmapClean(Bitmap *bitmap);&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;" parent="27" vertex="1">
                     <mxGeometry y="26" width="300" height="78" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="&lt;div&gt;GoF_Global&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;.cu&lt;/span&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#cdeb8b;strokeColor=#36393d;" vertex="1" parent="1">
+                    <mxGeometry x="1520" y="70" width="400" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="&lt;span style=&quot;color: rgb(63, 63, 63);&quot;&gt;struct GoF&lt;/span&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;fontFamily=Helvetica;fontSize=12;" vertex="1" parent="34">
+                    <mxGeometry y="26" width="400" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;__global__ void Update(bool* map, bool* copy_map, int* data);&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;GoF* GoFInit(Bitmap* bitmap);&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;void GoFDestroy(GoF* gof);&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;Bitmap* GoFUpdateBitmap(GoF *gof);&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;int GoFGetLive(GoF* gof);&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;int GoFGetDeaths(GoF* gof);&lt;/span&gt;&lt;/div&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;fontFamily=Helvetica;fontSize=12;" vertex="1" parent="34">
+                    <mxGeometry y="50" width="400" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="&lt;div&gt;GoF_Shared&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;.cu&lt;/span&gt;&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#cdeb8b;strokeColor=#36393d;" vertex="1" parent="1">
+                    <mxGeometry x="1520" y="347" width="400" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="&lt;span style=&quot;color: rgb(63, 63, 63);&quot;&gt;struct GoF&lt;/span&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;fontFamily=Helvetica;fontSize=12;" vertex="1" parent="37">
+                    <mxGeometry y="26" width="400" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" value="&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;__global__ void Update(bool* map, bool* copy_map, int* data);&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;GoF* GoFInit(Bitmap* bitmap);&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;void GoFDestroy(GoF* gof);&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;Bitmap* GoFUpdateBitmap(GoF *gof);&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;int GoFGetLive(GoF* gof);&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); background-color: transparent;&quot;&gt;int GoFGetDeaths(GoF* gof);&lt;/span&gt;&lt;/div&gt;" style="text;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=#333333;fontFamily=Helvetica;fontSize=12;" vertex="1" parent="37">
+                    <mxGeometry y="50" width="400" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endSize=12;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1" source="34" target="2">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1205" y="220" as="sourcePoint"/>
+                        <mxPoint x="1205" y="350" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1430" y="135"/>
+                            <mxPoint x="1430" y="407"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endSize=12;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1" source="37" target="2">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1530" y="145" as="sourcePoint"/>
+                        <mxPoint x="1360" y="417" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1480" y="450"/>
+                            <mxPoint x="1480" y="450"/>
+                        </Array>
+                    </mxGeometry>
                 </mxCell>
             </root>
         </mxGraphModel>

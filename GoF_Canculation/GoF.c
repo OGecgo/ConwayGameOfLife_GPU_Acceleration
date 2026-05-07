@@ -11,6 +11,8 @@ struct GoF
 {
     Bitmap* bitmap;
     bool* copy_map;
+    int live;
+    int deaths;
 };
 
 
@@ -35,6 +37,8 @@ void GoFDestroy(GoF* gof){
 void GoFUpdateBitmap(GoF* gof){
     // setup copy map
     memcpy(gof->copy_map, gof->bitmap->map, sizeof(bool) * gof->bitmap->size);
+    gof->live = 0;
+    gof->deaths = 0;
 
     for (int pos = 0; pos < gof->bitmap->size; pos++){
         int lifes = 0;
@@ -56,18 +60,31 @@ void GoFUpdateBitmap(GoF* gof){
         
 
         // birth - death block
-        if (gof->bitmap->map[pos] == true){
+        bool current_state = gof->bitmap->map[pos];
+        bool next_state = current_state;
+        if (current_state == true){
             lifes --;
-            if (lifes < MIN_LIFES_FOR_SURVIVE || lifes > MAX_LIFES_FOR_SURVIVE) 
-                gof->bitmap->map[pos] = false;
+            next_state = (lifes >= MIN_LIFES_FOR_SURVIVE && lifes <= MAX_LIFES_FOR_SURVIVE);
         }else{
-            if (lifes >= MIN_LIFES_FOR_BIRTH && lifes <= MAX_LIFES_FOR_BIRTH) 
-                gof->bitmap->map[pos] = true;
+            next_state = (lifes >= MIN_LIFES_FOR_BIRTH && lifes <= MAX_LIFES_FOR_BIRTH);
         }
+        gof->bitmap->map[pos] = next_state;
+        // if next_state true add live
+        // if next_state false add deaths
+        gof->live = next_state;
+        gof->deaths = !next_state;
+    
     }
     
 }
 
 Bitmap* GoFGetBitmap(GoF* gof){
     return gof->bitmap;
+}
+
+int GoFGetLive(GoF* gof){
+    return gof->live;
+}
+int GoFGetDeaths(GoF* gof){
+    return gof->deaths;
 }
