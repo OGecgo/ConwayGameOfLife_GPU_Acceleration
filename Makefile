@@ -9,18 +9,18 @@ EXEC = test
 LOGS = logs.txt
 FOLDER_EXEC = build
 LIB = -lSDL3
-
+CUDA_FLAGS = -Xptxas -v
 
 
 
 # errors only for gpu using cuda api
 build_gpu_global: $(MAIN_FILES) $(GPU_GLOBAL)
 	mkdir -p $(FOLDER_EXEC)
-	nvcc $(MAIN_FILES) $(GPU_GLOBAL) -o $(FOLDER_EXEC)/$(EXEC)_gpu_no_shared_memory $(LIB)
+	nvcc $(CUDA_FLAGS) $(MAIN_FILES) $(GPU_GLOBAL) -o $(FOLDER_EXEC)/$(EXEC)_gpu_no_shared_memory $(LIB)
 
 # build_gpu_shared: $(MAIN_FILES) $(GPU_SHARED)
 # 	mkdir -p $(FOLDER_EXEC)
-# 	nvcc $(MAIN_FILES) $(GPU_SHARED) -o $(FOLDER_EXEC)/$(EXEC)_gpu_shared_memory $(LIB)
+# 	nvcc $(CUDA_FLAGS) $(MAIN_FILES) $(GPU_SHARED) -o $(FOLDER_EXEC)/$(EXEC)_gpu_shared_memory $(LIB)
 
 
 build_cpu : $(MAIN_FILES) $(CPU_FILES)

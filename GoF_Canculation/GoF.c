@@ -47,8 +47,7 @@ void GoFUpdateBitmap(GoF* gof){
         // -n , ... , 0 , ... , n
         for (int h = -INTERACT_BLOCKS_AROUND; h < INTERACT_BLOCKS_AROUND + 1; h++){
             for (int w = -INTERACT_BLOCKS_AROUND; w < INTERACT_BLOCKS_AROUND + 1; w++){
-                int check_pos;
-                check_pos = pos + h * MAP_WIDTH + w;
+                int check_pos = pos + h * MAP_WIDTH + w;
                 // height check (do not go out of buffer)
                 if (check_pos < 0 || check_pos >= gof->bitmap->size) continue;
                 // width check (do not chaing layer)

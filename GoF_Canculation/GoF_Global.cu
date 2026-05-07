@@ -49,8 +49,6 @@ struct GoF
 
 
 // kernel 
-// with no use shared memmory
-
 __global__ void Update(bool* map, bool* copy_map, int* data){
     // data[0] = live
     // data[1] = deaths
@@ -61,17 +59,21 @@ __global__ void Update(bool* map, bool* copy_map, int* data){
         int lifes = 0;
 
         // -n , ... , 0 , ... , n
-        int check_pos = 0;
-
+        // wrap = 32 threads. bandwidth transfer data 32 bytes 
+        // 1 step take 32 byte data. for first count lifes(all 32 threads have data )
+        // 2 step take again 32 byte data for secodn  counts life add (last threads need data)
+        // 3 step not need to take data 
+        // (if INTERACT_BLOCKS_AROUND is big. maybe needs anothers steps with takes data)
+        // next linen
+        // repeat
         for (int h = -INTERACT_BLOCKS_AROUND; h < INTERACT_BLOCKS_AROUND + 1; h++){
             for (int w = -INTERACT_BLOCKS_AROUND; w < INTERACT_BLOCKS_AROUND + 1; w++){
-                check_pos = workIndex + h * MAP_WIDTH + w;
+                int check_pos = workIndex + h * MAP_WIDTH + w;
                 // height check (do not go out of buffer)
-                if (check_pos < 0 || check_pos >= MAP_SIZE) continue;
+                bool check = (check_pos >= 0 && check_pos < MAP_SIZE);
                 // width check (do not chaing layer)
-                if (check_pos / MAP_WIDTH != (check_pos - w) / MAP_WIDTH) continue;
-                // add if true
-                lifes += copy_map[check_pos];
+                check = (check_pos / MAP_WIDTH == (check_pos - w) / MAP_WIDTH);
+                if (check) lifes += copy_map[check_pos];
             }
         }    
 
@@ -116,6 +118,7 @@ GoF* GoFInit(){
     cudaDeviceProp prop;
     CUDA_CHECK( cudaGetDeviceProperties(&prop, device) );
 
+    // stats output
     printf("GPU stats:\n");
     printf("\tSM::%d\n", prop.multiProcessorCount);
     printf("\tThreads per SM::%d\n", prop.maxThreadsPerMultiProcessor);
