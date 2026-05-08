@@ -72,13 +72,13 @@ __global__ void Update(bool* map, bool* copy_map, int* data){
                 // height check (do not go out of buffer)
                 bool check = (check_pos >= 0 && check_pos < MAP_SIZE);
                 // width check (do not chaing layer)
-                check = (check_pos / MAP_WIDTH == (check_pos - w) / MAP_WIDTH);
+                check = (check_pos / MAP_WIDTH == (check_pos - w) / MAP_WIDTH) && check;
                 if (check) lifes += copy_map[check_pos];
             }
         }    
 
         // survive or birth
-        bool current_state = map[workIndex];
+        bool current_state = copy_map[workIndex];
         bool next_state = current_state;
         if (current_state == true){
             lifes --;
@@ -155,29 +155,36 @@ void GoFDestroy(GoF* gof){
 
 
 
-void GoFUpdateBitmap(GoF* gof){
+// top 1: memory copy make aplication very slow
+// top 2: cuda device synchronize  make aplication litle bit more slower
 
-    Bitmap* bitmap = gof->bitmap;
-    bool* map = bitmap->map;
-
-
-    // copy data to global memmory
-    CUDA_CHECK( cudaMemcpy(gof->device_map, map, sizeof(bool)*MAP_SIZE, cudaMemcpyHostToDevice) );
-    CUDA_CHECK( cudaMemcpy(gof->device_map_copy, map, sizeof(bool)*MAP_SIZE, cudaMemcpyHostToDevice) );
-    CUDA_CHECK( cudaMemset(gof->device_data, 0, sizeof(int)*2));
+void GoFUpdate(GoF* gof){
+    CUDA_CHECK( cudaMemset(gof->device_data, 0, sizeof(int)*2) );
+    // kernel
     Update<<<gof->blocks, gof->threads>>>(gof->device_map, gof->device_map_copy, gof->device_data);
     
     // wait update perform
     CUDA_CHECK( cudaDeviceSynchronize() );
     // copy output
-    CUDA_CHECK( cudaMemcpy(map, gof->device_map, sizeof(bool) * MAP_SIZE, cudaMemcpyDeviceToHost) );
+    // part 6 (for test speeds without it just commented)
+    // CUDA_CHECK( cudaMemcpy(gof->bitmap->map, gof->device_map, sizeof(bool) * MAP_SIZE, cudaMemcpyDeviceToHost) );
     CUDA_CHECK( cudaMemcpy(gof->data, gof->device_data, sizeof(int)*2, cudaMemcpyDeviceToHost));
 
+    // change pointers for next Update
+    bool* temp = gof->device_map_copy;
+    gof->device_map_copy = gof->device_map;
+    gof->device_map = temp;
 }
+
 
 
 Bitmap* GoFGetBitmap(GoF* gof){
     return gof->bitmap;
+}
+
+void GoFUpdateBitmap(GoF* gof){
+    // copy data to global memmory
+    CUDA_CHECK( cudaMemcpy(gof->device_map_copy, gof->bitmap->map, sizeof(bool)*MAP_SIZE, cudaMemcpyHostToDevice) );
 }
 
 int GoFGetLive(GoF* gof){

@@ -34,7 +34,7 @@ void GoFDestroy(GoF* gof){
 
 
 
-void GoFUpdateBitmap(GoF* gof){
+void GoFUpdate(GoF* gof){
     // setup copy map
     memcpy(gof->copy_map, gof->bitmap->map, sizeof(bool) * gof->bitmap->size);
     gof->live = 0;
@@ -49,7 +49,7 @@ void GoFUpdateBitmap(GoF* gof){
             for (int w = -INTERACT_BLOCKS_AROUND; w < INTERACT_BLOCKS_AROUND + 1; w++){
                 int check_pos = pos + h * MAP_WIDTH + w;
                 // height check (do not go out of buffer)
-                if (check_pos < 0 || check_pos >= gof->bitmap->size) continue;
+                if (check_pos < 0 || check_pos >= MAP_HEIGHT * MAP_WIDTH) continue;
                 // width check (do not chaing layer)
                 if (check_pos / MAP_WIDTH != (check_pos - w) / MAP_WIDTH) continue;
                 // add if true
@@ -79,6 +79,10 @@ void GoFUpdateBitmap(GoF* gof){
 
 Bitmap* GoFGetBitmap(GoF* gof){
     return gof->bitmap;
+}
+
+void GoFUpdateBitmap(GoF* gof){
+    /* GoF in c use one bitmap */
 }
 
 int GoFGetLive(GoF* gof){

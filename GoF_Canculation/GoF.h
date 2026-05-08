@@ -17,9 +17,13 @@ void GoFDestroy(GoF* gof);
 
 
 // GoFUpdateBitmap (automaticly update the bitmap memmory what given on GoFInit)
+void GoFUpdate(GoF* gof);
+// returned the bitmap of GoF and after the GoFUpdate the bitmap is will be updated
+Bitmap* GoFGetBitmap(GoF* gof);
+// every time Bitmap updated out of GoF
+//needed to call this function
 void GoFUpdateBitmap(GoF* gof);
 
-Bitmap* GoFGetBitmap(GoF* gof);
 // return the value of last step
 int GoFGetLive(GoF* gof);
 int GoFGetDeaths(GoF* gof);

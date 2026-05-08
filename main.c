@@ -1,7 +1,4 @@
-/*
- * Test program for Renderer2D
- * Creates a red/black split pattern to test GPU rendering
- */
+
 
 #include <SDL3/SDL_main.h>
 
@@ -16,6 +13,10 @@
 
 #include "GoF_Canculation/GoF.h"
 
+
+#define RANDOM_SEED 0
+
+
 void sleepFor(double time){
     clock_t start = clock();
     clock_t end = clock();
@@ -24,6 +25,22 @@ void sleepFor(double time){
         end = clock();
     }
     
+}
+
+
+
+void randomizeValues(bool* map, int size){
+    for(int i = 0; i < size; i++){
+        map[i] = rand()%2;
+    }
+}
+
+void testNonRandomValue(bool* map, int size){
+    for(int i = 0; i < size; i++){
+        if (i%2 == 0)
+            map[i] = true;
+
+    }
 }
 
 // melidika: prosthetw dio metrites. ta apotelesmata tha ta pernw apo to GoF
@@ -37,14 +54,9 @@ int main (int argc, char *argv[]){
     //create window
     WindowInit(bitmap, &run);
 
-
-    // set values
-    bool* map = bitmap->map;
-    for(int i = 0; i < bitmap->size; i++){
-        if (i%2 == 0)
-            map[i] = true;
-
-    }
+    srand(RANDOM_SEED); 
+    testNonRandomValue(bitmap->map, bitmap->size);
+    GoFUpdateBitmap(gof);
 
     printf("--START GAME OF LIFE--\n");
     // main loop
@@ -53,7 +65,7 @@ int main (int argc, char *argv[]){
 
         // count time
         clock_t start = clock();
-        GoFUpdateBitmap(gof);
+        GoFUpdate(gof);
         clock_t end = clock();
         int live = GoFGetLive(gof);
         int deaths = GoFGetDeaths(gof);
