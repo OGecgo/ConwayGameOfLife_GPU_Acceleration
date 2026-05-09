@@ -71,8 +71,8 @@ void GoFUpdate(GoF* gof){
         gof->bitmap->map[pos] = next_state;
         // if next_state true add live
         // if next_state false add deaths
-        gof->live = next_state;
-        gof->deaths = !next_state;
+        gof->live += next_state;
+        gof->deaths += !next_state;
     
     }
     
