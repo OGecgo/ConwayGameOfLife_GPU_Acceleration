@@ -167,7 +167,7 @@ void GoFUpdate(GoF* gof){
     CUDA_CHECK( cudaDeviceSynchronize() );
     // copy output
     // part 6 (for test speeds without it just commented)
-    // CUDA_CHECK( cudaMemcpy(gof->bitmap->map, gof->device_map, sizeof(bool) * MAP_SIZE, cudaMemcpyDeviceToHost) );
+    CUDA_CHECK( cudaMemcpy(gof->bitmap->map, gof->device_map, sizeof(bool) * MAP_SIZE, cudaMemcpyDeviceToHost) );
     CUDA_CHECK( cudaMemcpy(gof->data, gof->device_data, sizeof(int)*2, cudaMemcpyDeviceToHost));
 
     // change pointers for next Update

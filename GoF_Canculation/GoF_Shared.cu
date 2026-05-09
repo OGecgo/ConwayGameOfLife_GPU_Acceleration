@@ -41,6 +41,7 @@ struct GoF
     int* device_data;
     int threads;
     int blocks;
+    int shared_mem;
 
 };
 
@@ -53,32 +54,58 @@ __global__ void Update(bool* map, bool* copy_map, int* data){
     // data[0] = live
     // data[1] = deaths
     int workIndex = threadIdx.x + blockDim.x * blockIdx.x;
+    extern __shared__ bool tile[];
 
-    if (workIndex < MAP_SIZE ){
-        // count of life
-        int lifes = 0;
+    // each thread count of life
+    int lifes = 0;
+    // -n , ... , 0 , ... , n
+    for (int h = -INTERACT_BLOCKS_AROUND; h < INTERACT_BLOCKS_AROUND + 1; h++){
+        // move pos h steps up/down
+        int pos = workIndex + h * MAP_WIDTH;
 
-        // -n , ... , 0 , ... , n
-        // wrap = 32 threads. bandwidth transfer data 32 bytes 
-        // 1 step take 32 byte data. for first count lifes(all 32 threads have data )
-        // 2 step take again 32 byte data for secodn  counts life add (last threads need data)
-        // 3 step not need to take data 
-        // (if INTERACT_BLOCKS_AROUND is big. maybe needs anothers steps with takes data)
-        // next linen
-        // repeat
-        for (int h = -INTERACT_BLOCKS_AROUND; h < INTERACT_BLOCKS_AROUND + 1; h++){
-            for (int w = -INTERACT_BLOCKS_AROUND; w < INTERACT_BLOCKS_AROUND + 1; w++){
-                int check_pos = workIndex + h * MAP_WIDTH + w;
-                // height check (do not go out of buffer)
-                bool check = (check_pos >= 0 && check_pos < MAP_SIZE);
-                // width check (do not chaing layer)
-                check = (check_pos / MAP_WIDTH == (check_pos - w) / MAP_WIDTH);
-                if (check) lifes += copy_map[check_pos];
+        // LEFT
+        int left_pos = pos - INTERACT_BLOCKS_AROUND;
+        // do not go out of buffer
+        if (left_pos >= 0 && left_pos < MAP_SIZE){
+            // copy first data
+            tile[threadIdx.x] = copy_map[left_pos];
+        }
+        else{// for big maps is rare
+            tile[threadIdx.x] = false;
+        }
+
+        // LAST RIGHT
+        // only for last positions WIDTH_BLOCK-1 positions
+        if(threadIdx.x > blockDim.x - WIDTH_BLOCK){
+            int right_pos = pos + INTERACT_BLOCKS_AROUND;
+            // do not go out of buffer
+            if(right_pos < MAP_SIZE && right_pos >= 0){
+                // copy last data
+                tile[threadIdx.x + WIDTH_BLOCK - 1] = copy_map[right_pos];
             }
-        }    
+            else{// for big maps is rare
+                tile[threadIdx.x + WIDTH_BLOCK - 1] = false;
+            }
+        }
 
+        // wait when all threads end with transfer data to shared memory
+        __syncthreads(); 
+
+        // !!! pithanon edw alla kapou kati ginete lathos
+        // add values from shared memory
+        for (int w = 0; w < WIDTH_BLOCK; w++){
+            // do not change row
+            int check_pos = pos + h * MAP_WIDTH + w;
+            if (check_pos / MAP_WIDTH == (check_pos - w) / MAP_WIDTH)
+            lifes += tile[threadIdx.x + w];
+        }
+        // wait when all threads end with add and only after start write to tile new data
+        __syncthreads();
+    }
+
+    if (workIndex < MAP_SIZE) {
         // survive or birth
-        bool current_state = map[workIndex];
+        bool current_state = copy_map[workIndex];
         bool next_state = current_state;
         if (current_state == true){
             lifes --;
@@ -91,7 +118,6 @@ __global__ void Update(bool* map, bool* copy_map, int* data){
         // if next_state false add deaths
         atomicAdd(&data[0], next_state);
         atomicAdd(&data[1], !next_state);
-    
     }
 }
 
@@ -123,10 +149,13 @@ GoF* GoFInit(){
     printf("\tSM::%d\n", prop.multiProcessorCount);
     printf("\tThreads per SM::%d\n", prop.maxThreadsPerMultiProcessor);
     printf("\tRegisters per SM::%d\n", prop.regsPerMultiprocessor);
+    printf("\tShared memory per SM::%d", prop.sharedMemPerMultiprocessor);
     printf("\t---\n");
     printf("\tBlocks per SM::%d\n", prop.maxBlocksPerMultiProcessor);
-    printf("\tThreads per Blocks::%d\n", prop.maxThreadsPerBlock);
-    printf("\tRegisters per Blocks::%d\n", prop.regsPerBlock); 
+    printf("\tThreads per Block::%d\n", prop.maxThreadsPerBlock);
+    printf("\tRegisters per Block::%d\n", prop.regsPerBlock); 
+    printf("\tShared memory per Block::%d\n", prop.sharedMemPerBlock);
+
 
     // for maximize usage of multiprocessor
     gof->threads = prop.maxThreadsPerMultiProcessor / prop.maxBlocksPerMultiProcessor;
@@ -135,10 +164,20 @@ GoF* GoFInit(){
 
     gof->blocks = cuda::ceil_div(MAP_SIZE, gof->threads);
 
-    printf("Game of Life requer threads::%d \n", MAP_SIZE);
+    // count size of shared memory need the kernel
+    //
+    // shared memory have the row of pixels for counting 
+    // new row new read
+    gof->shared_mem = (gof->threads + WIDTH_BLOCK - 1) * sizeof(bool);
+    if (gof->shared_mem > prop.sharedMemPerBlock){
+        gof->shared_mem = prop.sharedMemPerBlock;
+    }
+
+    printf("Game of Life\n");
+    printf("Need threads::%d\n", MAP_SIZE);
+    printf("Threads::%d, Blocks::%d, Total Threads::%d\n", gof->threads, gof->blocks, gof->threads * gof->blocks);
+    printf("Shared Memory::%d\n", gof->shared_mem);
     printf("\n");
-    printf("Will be used Threads:::%d and Blocks:::%d\n",gof->threads, gof->blocks);
-    printf("Total threads::%d will be called\n", gof->threads * gof->blocks);
 
     return gof;
 }
@@ -153,25 +192,28 @@ void GoFDestroy(GoF* gof){
 }
 
 
+
 // top 1: memory copy make aplication very slow
 // top 2: cuda device synchronize  make aplication litle bit more slower
 
 void GoFUpdate(GoF* gof){
-    CUDA_CHECK( cudaMemcpy(gof->device_map, gof->bitmap->map, sizeof(bool)*MAP_SIZE, cudaMemcpyHostToDevice) );
-    CUDA_CHECK( cudaMemcpy(gof->device_map_copy, gof->bitmap->map, sizeof(bool)*MAP_SIZE, cudaMemcpyHostToDevice) );
-
-    // CUDA_CHECK( cudaMemcpy(gof->device_map_copy, gof->device_map, sizeof(bool) * MAP_SIZE, cudaMemcpyDeviceToDevice));
-    CUDA_CHECK( cudaMemset(gof->device_data, 0, sizeof(int)*2));
+    CUDA_CHECK( cudaMemset(gof->device_data, 0, sizeof(int)*2) );
     // kernel
-    Update<<<gof->blocks, gof->threads>>>(gof->device_map, gof->device_map_copy, gof->device_data);
+    Update<<<gof->blocks, gof->threads, gof->shared_mem>>>(gof->device_map, gof->device_map_copy, gof->device_data);
     
     // wait update perform
-    CUDA_CHECK( cudaDeviceSynchronize() ); // make aplication multiple times slower
+    CUDA_CHECK( cudaDeviceSynchronize() );
     // copy output
+    // part 6 (for test speeds without it just commented)
     CUDA_CHECK( cudaMemcpy(gof->bitmap->map, gof->device_map, sizeof(bool) * MAP_SIZE, cudaMemcpyDeviceToHost) );
     CUDA_CHECK( cudaMemcpy(gof->data, gof->device_data, sizeof(int)*2, cudaMemcpyDeviceToHost));
 
+    // change pointers for next Update
+    bool* temp = gof->device_map_copy;
+    gof->device_map_copy = gof->device_map;
+    gof->device_map = temp;
 }
+
 
 
 Bitmap* GoFGetBitmap(GoF* gof){
@@ -180,7 +222,6 @@ Bitmap* GoFGetBitmap(GoF* gof){
 
 void GoFUpdateBitmap(GoF* gof){
     // copy data to global memmory
-    CUDA_CHECK( cudaMemcpy(gof->device_map, gof->bitmap->map, sizeof(bool)*MAP_SIZE, cudaMemcpyHostToDevice) );
     CUDA_CHECK( cudaMemcpy(gof->device_map_copy, gof->bitmap->map, sizeof(bool)*MAP_SIZE, cudaMemcpyHostToDevice) );
 }
 
