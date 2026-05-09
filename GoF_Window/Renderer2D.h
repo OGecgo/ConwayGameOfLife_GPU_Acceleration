@@ -14,13 +14,13 @@
 typedef struct
 {
     int window_size_x, window_size_y;    // Window size
-    char *name_aplication; // App name
-    char *version;         // Version string
-    char *reverse_domain;  // Domain ID
-    char *creator;         // Author
-    char *copyright;       // Copyright info
-    char *url;             // Project URL
-    char *type_aplication; // App type
+    char* name_aplication; // App name
+    char* version;         // Version string
+    char* reverse_domain;  // Domain ID
+    char* creator;         // Author
+    char* copyright;       // Copyright info
+    char* url;             // Project URL
+    char* type_aplication; // App type
 } Renderer2DMetada;
 
 

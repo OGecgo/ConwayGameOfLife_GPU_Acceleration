@@ -8,8 +8,7 @@
 
 
 
-#define WIDTH_BLOCK (INTERACT_BLOCKS_AROUND + INTERACT_BLOCKS_AROUND + 1)
-#define SIZE_BLOCK WIDTH_BLOCK * WIDTH_BLOCK
+#define BLOCK_WIDTH (INTERACT_BLOCKS_AROUND + INTERACT_BLOCKS_AROUND + 1)
 #define MAP_SIZE MAP_HEIGHT * MAP_WIDTH
 
 #define CUDA_CHECK(expr_to_check){                     \
@@ -65,16 +64,16 @@ __forceinline__ __device__ void readData(int pos, bool* copy_map){
     }
 
     // LAST RIGHT
-    // only for last WIDTH_BLOCK-1 positions
-    if(threadIdx.x > blockDim.x - WIDTH_BLOCK){
+    // only for last BLOCK_WIDTH-1 positions
+    if(threadIdx.x > blockDim.x - BLOCK_WIDTH){
         int right_pos = pos + INTERACT_BLOCKS_AROUND;
         // do not go out of buffer
         if(right_pos >= 0 && right_pos < MAP_SIZE){
             // copy last data
-            tile[threadIdx.x + WIDTH_BLOCK - 1] = copy_map[right_pos];
+            tile[threadIdx.x + BLOCK_WIDTH - 1] = copy_map[right_pos];
         }
         else{
-            tile[threadIdx.x + WIDTH_BLOCK - 1] = false;
+            tile[threadIdx.x + BLOCK_WIDTH - 1] = false;
         }
     }
 
@@ -177,7 +176,7 @@ GoF* GoFInit(){
     //
     // shared memory have the row of pixels for counting 
     // new row new read
-    gof->shared_mem = (gof->threads + WIDTH_BLOCK - 1) * sizeof(bool);
+    gof->shared_mem = (gof->threads + BLOCK_WIDTH - 1) * sizeof(bool);
     if (gof->shared_mem > prop.sharedMemPerBlock){
         gof->shared_mem = prop.sharedMemPerBlock;
     }

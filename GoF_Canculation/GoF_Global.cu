@@ -8,8 +8,6 @@
 
 
 
-#define WIDTH_BLOCK (INTERACT_BLOCKS_AROUND + INTERACT_BLOCKS_AROUND + 1)
-#define SIZE_BLOCK WIDTH_BLOCK * WIDTH_BLOCK
 #define MAP_SIZE MAP_HEIGHT * MAP_WIDTH
 
 #define CUDA_CHECK(expr_to_check){                     \

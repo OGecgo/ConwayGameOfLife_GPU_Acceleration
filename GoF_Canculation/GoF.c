@@ -7,8 +7,7 @@
 #include <stdio.h>
 
 
-struct GoF
-{
+struct GoF{
     Bitmap* bitmap;
     bool* copy_map;
     int live;
