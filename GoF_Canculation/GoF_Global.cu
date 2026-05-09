@@ -69,10 +69,11 @@ __global__ void Update(bool* map, bool* copy_map, int* data){
         for (int h = -INTERACT_BLOCKS_AROUND; h < INTERACT_BLOCKS_AROUND + 1; h++){
             for (int w = -INTERACT_BLOCKS_AROUND; w < INTERACT_BLOCKS_AROUND + 1; w++){
                 int check_pos = workIndex + h * MAP_WIDTH + w;
-                // height check (do not go out of buffer)
+                // do not go out of buffer
                 bool check = (check_pos >= 0 && check_pos < MAP_SIZE);
-                // width check (do not chaing layer)
-                check = (check_pos / MAP_WIDTH == (check_pos - w) / MAP_WIDTH) && check;
+                // dont change row 
+                int row_test = check_pos % MAP_WIDTH - w;
+                check = (row_test < MAP_WIDTH && row_test >= 0) && check;
                 if (check) lifes += copy_map[check_pos];
             }
         }    

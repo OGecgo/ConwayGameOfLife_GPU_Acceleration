@@ -48,12 +48,14 @@ void GoFUpdate(GoF* gof){
         for (int h = -INTERACT_BLOCKS_AROUND; h < INTERACT_BLOCKS_AROUND + 1; h++){
             for (int w = -INTERACT_BLOCKS_AROUND; w < INTERACT_BLOCKS_AROUND + 1; w++){
                 int check_pos = pos + h * MAP_WIDTH + w;
-                // height check (do not go out of buffer)
-                if (check_pos < 0 || check_pos >= MAP_HEIGHT * MAP_WIDTH) continue;
-                // width check (do not chaing layer)
-                if (check_pos / MAP_WIDTH != (check_pos - w) / MAP_WIDTH) continue;
-                // add if true
-                lifes += gof->copy_map[check_pos];
+                // do not go out of buffer
+                if (check_pos >= 0 && check_pos < MAP_HEIGHT * MAP_WIDTH) {
+                    // dont change row 
+                    int row_test = check_pos % MAP_WIDTH - w;
+                    if (row_test < MAP_WIDTH && row_test >= 0) {
+                        lifes += gof->copy_map[check_pos];
+                    }
+                }
             }
         }
         
