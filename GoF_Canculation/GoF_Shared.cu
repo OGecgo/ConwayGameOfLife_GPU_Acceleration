@@ -46,7 +46,41 @@ struct GoF
 };
 
 
+// copy global data to shared memory
+// copy only row need each thread into block
+// warning! they copy data without take mind the change of row. only buffer
+// if value out of buffer. they automaticly will be false
+__forceinline__ __device__ void readData(int pos, bool* copy_map){
+    extern __shared__ bool tile[];
 
+    // LEFT
+    int left_pos = pos - INTERACT_BLOCKS_AROUND;
+    // do not go out of buffer
+    if (left_pos >= 0 && left_pos < MAP_SIZE){
+        // copy first data
+        tile[threadIdx.x] = copy_map[left_pos];
+    }
+    else{
+        tile[threadIdx.x] = false;
+    }
+
+    // LAST RIGHT
+    // only for last WIDTH_BLOCK-1 positions
+    if(threadIdx.x > blockDim.x - WIDTH_BLOCK){
+        int right_pos = pos + INTERACT_BLOCKS_AROUND;
+        // do not go out of buffer
+        if(right_pos >= 0 && right_pos < MAP_SIZE){
+            // copy last data
+            tile[threadIdx.x + WIDTH_BLOCK - 1] = copy_map[right_pos];
+        }
+        else{
+            tile[threadIdx.x + WIDTH_BLOCK - 1] = false;
+        }
+    }
+
+    // wait when all threads end with transfer data to shared memory
+    __syncthreads(); 
+}
 
 
 // kernel 
@@ -62,44 +96,19 @@ __global__ void Update(bool* map, bool* copy_map, int* data){
     for (int h = -INTERACT_BLOCKS_AROUND; h < INTERACT_BLOCKS_AROUND + 1; h++){
         // move pos h steps up/down
         int pos = workIndex + h * MAP_WIDTH;
-
-        // LEFT
-        int left_pos = pos - INTERACT_BLOCKS_AROUND;
-        // do not go out of buffer
-        if (left_pos >= 0 && left_pos < MAP_SIZE){
-            // copy first data
-            tile[threadIdx.x] = copy_map[left_pos];
-        }
-        else{
-            tile[threadIdx.x] = false;
-        }
-
-        // LAST RIGHT
-        // only for last positions WIDTH_BLOCK-1 positions
-        if(threadIdx.x > blockDim.x - WIDTH_BLOCK){
-            int right_pos = pos + INTERACT_BLOCKS_AROUND;
-            // do not go out of buffer
-            if(right_pos >= 0 && right_pos < MAP_SIZE){
-                // copy last data
-                tile[threadIdx.x + WIDTH_BLOCK - 1] = copy_map[right_pos];
-            }
-            else{
-                tile[threadIdx.x + WIDTH_BLOCK - 1] = false;
-            }
-        }
-
-        // wait when all threads end with transfer data to shared memory
-        __syncthreads(); 
-
+        readData(pos, copy_map);
+        
         // add values from shared memory
         int row = workIndex % MAP_WIDTH;
         for (int w = -INTERACT_BLOCKS_AROUND; w < INTERACT_BLOCKS_AROUND + 1; w++){
-            // do not change row
+            // do not change row when position in edge
             if (row + w >= 0 && row + w < MAP_WIDTH){
                 lifes += tile[threadIdx.x + w + INTERACT_BLOCKS_AROUND]; 
             }
         }
-        // wait when all threads end with add and only after start write to tile new data
+        // wait when all threads end with add lifes
+        // reason: start write to tile wrap when another wrap dont end read the tile
+        //         threads write and read similars position into tile
         __syncthreads();
     }
 

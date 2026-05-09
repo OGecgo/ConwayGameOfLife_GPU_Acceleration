@@ -72,7 +72,8 @@ int main (int argc, char *argv[]){
         double time = (double)(end - start)/CLOCKS_PER_SEC;
         printf("Deaths::%d Live::%d Time::%f_sec\n", deaths, live, time);
 
-        // sleepFor(0.5);
+        // break;
+        // sleepFor(0.1);
 	}
 
 
