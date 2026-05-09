@@ -70,7 +70,7 @@ __global__ void Update(bool* map, bool* copy_map, int* data){
             // copy first data
             tile[threadIdx.x] = copy_map[left_pos];
         }
-        else{// for big maps is rare
+        else{
             tile[threadIdx.x] = false;
         }
 
@@ -79,11 +79,11 @@ __global__ void Update(bool* map, bool* copy_map, int* data){
         if(threadIdx.x > blockDim.x - WIDTH_BLOCK){
             int right_pos = pos + INTERACT_BLOCKS_AROUND;
             // do not go out of buffer
-            if(right_pos < MAP_SIZE && right_pos >= 0){
+            if(right_pos >= 0 && right_pos < MAP_SIZE){
                 // copy last data
                 tile[threadIdx.x + WIDTH_BLOCK - 1] = copy_map[right_pos];
             }
-            else{// for big maps is rare
+            else{
                 tile[threadIdx.x + WIDTH_BLOCK - 1] = false;
             }
         }
@@ -91,17 +91,32 @@ __global__ void Update(bool* map, bool* copy_map, int* data){
         // wait when all threads end with transfer data to shared memory
         __syncthreads(); 
 
-        // !!! pithanon edw alla kapou kati ginete lathos
         // add values from shared memory
-        for (int w = 0; w < WIDTH_BLOCK; w++){
+        int row = workIndex % MAP_WIDTH;
+        for (int w = -INTERACT_BLOCKS_AROUND; w < INTERACT_BLOCKS_AROUND + 1; w++){
             // do not change row
-            int check_pos = pos + h * MAP_WIDTH + w;
-            if (check_pos / MAP_WIDTH == (check_pos - w) / MAP_WIDTH)
-            lifes += tile[threadIdx.x + w];
+            if (row + w >= 0 && row + w < MAP_WIDTH){
+                lifes += tile[threadIdx.x + w + INTERACT_BLOCKS_AROUND];
+                if (workIndex == 95){
+                    printf("|%d", tile[threadIdx.x + w + INTERACT_BLOCKS_AROUND]);
+                }   
+            }
+            else if (workIndex == 95){
+                printf("%d", false);
+            }
+        }
+        if (workIndex == 95){
+            printf("|\n");
         }
         // wait when all threads end with add and only after start write to tile new data
         __syncthreads();
     }
+    // 0 => 36
+    // 100 => 36 + 
+    // if (workIndex == 95){
+    //     printf("workIndex::%d, thread::%d, block::%d, lifes::%d\n", workIndex, threadIdx.x, blockIdx.x, lifes);
+
+    // }
 
     if (workIndex < MAP_SIZE) {
         // survive or birth
