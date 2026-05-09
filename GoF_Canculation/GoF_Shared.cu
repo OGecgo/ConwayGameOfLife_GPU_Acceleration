@@ -96,27 +96,12 @@ __global__ void Update(bool* map, bool* copy_map, int* data){
         for (int w = -INTERACT_BLOCKS_AROUND; w < INTERACT_BLOCKS_AROUND + 1; w++){
             // do not change row
             if (row + w >= 0 && row + w < MAP_WIDTH){
-                lifes += tile[threadIdx.x + w + INTERACT_BLOCKS_AROUND];
-                if (workIndex == 95){
-                    printf("|%d", tile[threadIdx.x + w + INTERACT_BLOCKS_AROUND]);
-                }   
+                lifes += tile[threadIdx.x + w + INTERACT_BLOCKS_AROUND]; 
             }
-            else if (workIndex == 95){
-                printf("%d", false);
-            }
-        }
-        if (workIndex == 95){
-            printf("|\n");
         }
         // wait when all threads end with add and only after start write to tile new data
         __syncthreads();
     }
-    // 0 => 36
-    // 100 => 36 + 
-    // if (workIndex == 95){
-    //     printf("workIndex::%d, thread::%d, block::%d, lifes::%d\n", workIndex, threadIdx.x, blockIdx.x, lifes);
-
-    // }
 
     if (workIndex < MAP_SIZE) {
         // survive or birth
