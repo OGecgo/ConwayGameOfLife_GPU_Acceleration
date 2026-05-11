@@ -10,12 +10,15 @@
 
 #include <time.h>
 
-// bitmap translated to array of colors
-// static array of rgba colors
+// Global pixel buffer for the screen.
+// Reused every frame to avoid calling malloc/free in a loop.
 static uint32_t *rgba8888;
 
 static void ConverBitmapToRGBA8888(Bitmap *bitmap)
 {
+
+    // Convert boolean game grid to actual colors: 
+    // True = White (Alive), False = Black (Dead)
     for (int i = 0; i < bitmap->size; i++)
     {
         rgba8888[i] = bitmap->map[i] ? 0xFFFFFFFF : 0x000000FF;
@@ -24,7 +27,7 @@ static void ConverBitmapToRGBA8888(Bitmap *bitmap)
 
 void WindowInit(Bitmap* bitmap, bool *run_main_while)
 {
-    // set metadata
+    // Prepare SDL window properties
     Renderer2DMetada *metadata = malloc(sizeof(Renderer2DMetada));
     metadata->window_size_x = WINDOW_SIZE_X;
     metadata->window_size_y = WINDOW_SIZE_Y;
@@ -36,14 +39,14 @@ void WindowInit(Bitmap* bitmap, bool *run_main_while)
     metadata->url = GITHUB_REPOSITORY;
     metadata->type_aplication = TYPE_APLICATION;
 
-    // black backsreen
+    // Create the window with a black background (R:0, G:0, B:0, A:1)
     if (!Renderer2DInit(metadata, run_main_while, 0, 0, 0, 1, bitmap->width, bitmap->height))
         printf("\nError Renderer2DInit\n");
-    // do not need again
+    // Metadata is passed to SDL, so we don't need it anymore
     free(metadata);
 
 
-    // set pixels rendering black
+    // Allocate memory for our pixel buffer and fill it with black
     rgba8888 = malloc(sizeof(uint32_t) * bitmap->size);
     memset(rgba8888, 0x000000FF, bitmap->size);
 }
@@ -52,15 +55,18 @@ void WindowInit(Bitmap* bitmap, bool *run_main_while)
 void WindowDestroy()
 {
     Renderer2DDestroy();
+    if (rgba8888 != NULL) {
+        free(rgba8888);
+        rgba8888 = NULL;
+    }
 }
 
-// set bitmap and present it
 void WindowUpdateBitmap(Bitmap *bitmap)
 {
     ConverBitmapToRGBA8888(bitmap);
 
     Renderer2DCheckEvents();
-
+    
     if (!Renderer2DSetBufferCollor(rgba8888))
         printf("Error Buffer color\n");
 

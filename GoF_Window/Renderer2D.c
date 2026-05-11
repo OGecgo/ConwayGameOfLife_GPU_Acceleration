@@ -20,16 +20,17 @@ static SDL_Window *window;
 static SDL_Renderer *renderer;
 static SDL_Texture *texture;
 
-// Application state
+// Main loop control and buffer dimensions
 static bool *run_true;
 int _buffer_size_x, _buffer_size_y;
 
-// Error handling
+// Print non-critical SDL error and continue execution
 static void ErrorSDLPrint(char *error)
 {
     printf("ERROR - %s: %s\n", error, SDL_GetError());
 }
 
+// Print critical SDL error, cleanup, and exit the program
 static void ErrorCrashSDLPrint(char *error)
 {
     printf("CRITICAL ERROR - %s: %s\n", error, SDL_GetError());
@@ -37,38 +38,40 @@ static void ErrorCrashSDLPrint(char *error)
     exit(1);
 }
 
-// Signal handler for Ctrl+C
+// Catch Ctrl+C and gracefully exit
 static void SignalHandler(int sig)
 {
     exit(sig);
 }
 
-// Initialization helpers
+
+
+// Create SDL window with specified size and resizable flag
 static void InitWindow(Renderer2DMetada *metadata)
 {
     window = SDL_CreateWindow(metadata->name_aplication, metadata->window_size_x, metadata->window_size_y, SDL_WINDOW_RESIZABLE);
     if (window == NULL)
         ErrorCrashSDLPrint("SDL_CREATE_WINDOW");
 }
-
+// Create renderer, set background color, and clear the screen once
 static void InitRenderer(uint8_t r, uint8_t g, uint8_t b, uint8_t a, bool *val_return)
 {
-    // Create renderer with auto driver selection
+    // Renderer auto-selects best SDL driver available
     renderer = SDL_CreateRenderer(window, NULL);
     if (renderer == NULL)
         ErrorCrashSDLPrint("SDL_CREATE_RENDERER");
 
-    // Set clear color
+    // Set the color used for clearing the screen each frame
     if (!SDL_SetRenderDrawColor(renderer, r, g, b, a))
     {
         *val_return = false;
         ErrorSDLPrint("SDL_SET_RENDER_DRAW_COLOR");
     }
 
-    // Clear screen once
+    // Clear once to show the background color
     SDL_RenderClear(renderer);
 }
-
+// Create a texture that can be updated each frame 
 static void InitTexture()
 {
     // Create streaming texture for color buffer updates
@@ -124,19 +127,19 @@ bool Renderer2DInit(
         ErrorSDLPrint("SDL_PROP_APP_METADATA_TYPE_STRING");
     }
 
-    // Initialize SDL video
+    // Initialize SDL3 video subsystem
     if (!SDL_Init(SDL_INIT_VIDEO))
         ErrorCrashSDLPrint("SDL_INIT_VIDEO");
 
-    // Setup window, renderer, and texture
+    // Create window, renderer, and textur
     InitWindow(metadata);
     InitRenderer(r, g, b, a, &val_return);
     InitTexture();
 
-    // turn of scale mode
+    // Use nearest-neighbor scaling (no blurring when window is resized)
     SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_NEAREST);
 
-    // Setup main loop control and signal handler
+    // Connect main loop to window state and setup handler
     run_true = run;
     *run_true = true;
     signal(SIGINT, SignalHandler);
@@ -144,7 +147,7 @@ bool Renderer2DInit(
     return val_return;
 }
 
-// Cleanup all SDL resources
+// Free all SDL resources
 void Renderer2DDestroy()
 {
     if (texture != NULL)
@@ -156,7 +159,7 @@ void Renderer2DDestroy()
     SDL_Quit();
 }
 
-// Update color buffer texture
+// Copy pixel data to texture and render it to the screen
 bool Renderer2DSetBufferCollor(void *new_buffer)
 {
     bool val_return = true;
@@ -170,16 +173,16 @@ bool Renderer2DSetBufferCollor(void *new_buffer)
         ErrorSDLPrint("SDL_LOCK_TEXTURE");
     }
 
-    // Copy new pixel data
+    // Copy the new pixel data into the locked texture
     memcpy(old_buffer, new_buffer, pitch * _buffer_size_y);
 
-    // Unlock and render texture
+    // Unlock texture and queue it for rendering
     SDL_UnlockTexture(texture);
     SDL_RenderTexture(renderer, texture, NULL, NULL);
     return val_return;
 }
 
-// Present current frame
+// Send the rendered frame to the display
 bool Renderer2DPresent()
 {
     return SDL_RenderPresent(renderer);

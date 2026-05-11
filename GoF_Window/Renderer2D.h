@@ -35,13 +35,14 @@ bool Renderer2DInit
     int buffer_size_x, int buffer_size_y
 );
 
-// Clean up SDL resources
+// Release all SDL resources
 void Renderer2DDestroy();
 
-// Update color buffer (clear buffer before new data)
+// Copy new pixel data to the render buffer
+// new_buffer: pointer to pixel array ready to be rendered
 bool Renderer2DSetBufferCollor(void *new_buffer);
 
-// Show current frame on screen
+// Send the current buffer to the screen
 bool Renderer2DPresent();
 
 // Process events (handles quit events)

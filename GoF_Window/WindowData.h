@@ -1,12 +1,9 @@
-/*
- * Application configuration constants
- * Conway's Game of Life GPU project
- */
+
 
 #ifndef WINDOWDATA_H
 #define WINDOWDATA_H
 
-// Application metadata used by Window.h
+// Application metadata used by Window.c
 #define WINDOW_SIZE_X 100
 #define WINDOW_SIZE_Y 100
 
