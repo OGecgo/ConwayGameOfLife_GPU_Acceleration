@@ -3,10 +3,10 @@
 #define GOFCONFIG_H
 
 
-#define MAP_HEIGHT 1024
-#define MAP_WIDTH  1024
+#define MAP_HEIGHT 4096
+#define MAP_WIDTH  4096
 
-#define INTERACT_BLOCKS_AROUND 5 // horizontal x vertical = 11x11
+#define INTERACT_BLOCKS_AROUND 5 
 
 #define MIN_LIFES_FOR_SURVIVE 34
 #define MAX_LIFES_FOR_SURVIVE 58
