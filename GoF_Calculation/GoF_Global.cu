@@ -9,7 +9,7 @@
 
 
 #define MAP_SIZE MAP_HEIGHT * MAP_WIDTH
-
+// Check CUDA errors and print diagnostic information
 #define CUDA_CHECK(expr_to_check){                     \
     cudaError_t result  = expr_to_check;               \
     if(result != cudaSuccess)                          \
@@ -33,10 +33,10 @@ extern "C"{
 struct GoF
 {
     Bitmap* bitmap;
-    int data[2]; // live deaths
-    bool* device_map;
-    bool* device_map_copy;
-    int* device_data;
+    int data[2];            // [0] = live, [1] = deaths
+    bool* device_map;       // next generation (GPU memory)
+    bool* device_map_copy;  // current generation (GPU memory)
+    int* device_data;       // [0] = live, [1] = deaths (GPU memory)
     int threads;
     int blocks;
 
@@ -57,37 +57,32 @@ __global__ void Update(bool* map, bool* copy_map, int* data){
         int lifes = 0;
 
         // -n , ... , 0 , ... , n
-        // wrap = 32 threads. bandwidth transfer data 32 bytes 
-        // 1 step take 32 byte data. for first count lifes(all 32 threads have data )
-        // 2 step take again 32 byte data for secodn  counts life add (last threads need data)
-        // 3 step not need to take data 
-        // (if INTERACT_BLOCKS_AROUND is big. maybe needs anothers steps with takes data)
-        // next linen
-        // repeat
+        // Loop order optimized for memory coalescing:
+        // Inner loop (w) over columns, outer loop (h) over rows.
+        // This ensures consecutive threads access consecutive memory locations.
         for (int h = -INTERACT_BLOCKS_AROUND; h < INTERACT_BLOCKS_AROUND + 1; h++){
             for (int w = -INTERACT_BLOCKS_AROUND; w < INTERACT_BLOCKS_AROUND + 1; w++){
                 int check_pos = workIndex + h * MAP_WIDTH + w;
-                // do not go out of buffer
+                // Bounds check: stay within buffer
                 bool check = (check_pos >= 0 && check_pos < MAP_SIZE);
-                // dont change row 
+                // Bounds check: don't wrap to adjacent rows
                 int row_test = check_pos % MAP_WIDTH - w;
                 check = (row_test < MAP_WIDTH && row_test >= 0) && check;
                 if (check) lifes += copy_map[check_pos];
             }
         }    
 
-        // survive or birth
+       // survive, birth or death
         bool current_state = copy_map[workIndex];
         bool next_state = current_state;
         if (current_state == true){
-            lifes --;
+            lifes --; // Don't count itself
             next_state = (lifes >= MIN_LIFES_FOR_SURVIVE && lifes <= MAX_LIFES_FOR_SURVIVE);
         }else{
             next_state = (lifes >= MIN_LIFES_FOR_BIRTH && lifes <= MAX_LIFES_FOR_BIRTH);
         }
         map[workIndex] = next_state;
-        // if next_state true add live
-        // if next_state false add deaths
+        // Count statistics for this generation
         atomicAdd(&data[0], next_state);
         atomicAdd(&data[1], !next_state);
     
@@ -110,14 +105,17 @@ GoF* GoFInit(){
     CUDA_CHECK( cudaMalloc(&(gof->device_map)     , sizeof(bool)*MAP_SIZE) );
     CUDA_CHECK( cudaMalloc(&(gof->device_map_copy), sizeof(bool)*MAP_SIZE) );
     CUDA_CHECK( cudaMalloc(&(gof->device_data)    , sizeof(int)*2));
+    // set false values
+    CUDA_CHECK( cudaMemset(gof->device_map     , false, sizeof(bool)*MAP_SIZE) );
+    CUDA_CHECK( cudaMemset(gof->device_map_copy, false, sizeof(bool)*MAP_SIZE) );
+    CUDA_CHECK( cudaMemset(gof->device_data    , false, sizeof(int)*2));
 
-    // data about gpu
-    int device; // gpu
+    // GPU properties
+    int device; 
     CUDA_CHECK( cudaGetDevice(&device) );
     cudaDeviceProp prop;
     CUDA_CHECK( cudaGetDeviceProperties(&prop, device) );
 
-    // stats output
     printf("GPU Characteristics:\n");
     printf("\tMax SM::%d\n", prop.multiProcessorCount);
     printf("\tMax Threads per SM::%d\n", prop.maxThreadsPerMultiProcessor);
@@ -127,7 +125,7 @@ GoF* GoFInit(){
     printf("\tMax Threads per Block::%d\n", prop.maxThreadsPerBlock);
     printf("\tMax Registers per Block::%d\n", prop.regsPerBlock); 
 
-    // for maximize usage of multiprocessor
+    // Calculate optimal thread/block configuration for load balancing
     gof->threads = prop.maxThreadsPerMultiProcessor / prop.maxBlocksPerMultiProcessor;
     if (gof->threads > prop.maxThreadsPerBlock) 
         gof->threads = prop.maxThreadsPerBlock;
@@ -154,22 +152,21 @@ void GoFDestroy(GoF* gof){
 
 
 
-// top 1: memory copy make aplication very slow
-// top 2: cuda device synchronize  make aplication litle bit more slower
 
 void GoFUpdate(GoF* gof){
+    // clear statistics
     CUDA_CHECK( cudaMemset(gof->device_data, 0, sizeof(int)*2) );
-    // kernel
+    
+    // launch kernel
     Update<<<gof->blocks, gof->threads>>>(gof->device_map, gof->device_map_copy, gof->device_data);
     
-    // wait update perform
+    // Wait for GPU to finish (kernel + memory operations)
     CUDA_CHECK( cudaDeviceSynchronize() );
-    // copy output
-    // part 6 (for test speeds without it just commented)
+    // copy results from GPU to host CPU
     CUDA_CHECK( cudaMemcpy(gof->bitmap->map, gof->device_map, sizeof(bool) * MAP_SIZE, cudaMemcpyDeviceToHost) );
     CUDA_CHECK( cudaMemcpy(gof->data, gof->device_data, sizeof(int)*2, cudaMemcpyDeviceToHost));
 
-    // change pointers for next Update
+    // swap buffers for next generation
     bool* temp = gof->device_map_copy;
     gof->device_map_copy = gof->device_map;
     gof->device_map = temp;
@@ -182,7 +179,7 @@ Bitmap* GoFGetBitmap(GoF* gof){
 }
 
 void GoFUpdateBitmap(GoF* gof){
-    // copy data to global memmory
+    // copy CPU host data to GPU global memmory
     CUDA_CHECK( cudaMemcpy(gof->device_map_copy, gof->bitmap->map, sizeof(bool)*MAP_SIZE, cudaMemcpyHostToDevice) );
 }
 
