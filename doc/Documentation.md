@@ -134,7 +134,8 @@ alive ή dead. Σε κάθε γενιά (generation), ένα κελί «πεθα
 
 Εδώ είναι ένα παράδειγμα όπου radius = 5, έχουν δεσμεφτεί 96 threads ανά block και η σειρά είναι 0 (η μέτρηση είναι από -5 έως 5)
 
-![alt text](image.png)
+<center> <img src="image.png" style="width: 70%;"> </center>
+
 
 ### **Μετά της εκτέλεσης του κύριου βρόχου**
 Όμοια με την <a href="#υλοποίηση-σε-cuda-χωρίς-shared-memory" style="text-decoration-line: underline; color: black;">Υλοποίηση σε cuda χωρίς shared memory</a>
@@ -197,7 +198,7 @@ alive ή dead. Σε κάθε γενιά (generation), ένα κελί «πεθα
 
 παράδειγμα:
 
-![alt text](image-1.png)
+<center> <img src="image-1.png"> </center>
 
 
 <div style="page-break-after: always;"></div>

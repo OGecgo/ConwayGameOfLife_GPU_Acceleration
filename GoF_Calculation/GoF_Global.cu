@@ -147,7 +147,10 @@ void GoFDestroy(GoF* gof){
             CUDA_CHECK( cudaFree(gof->device_map) );
         if (gof->device_map_copy != NULL)
             CUDA_CHECK( cudaFree(gof->device_map_copy) );
+        if (gof->device_data != NULL)
+            CUDA_CHECK( cudaFree(gof->device_data));
         free(gof);
+        
 }
 
 
